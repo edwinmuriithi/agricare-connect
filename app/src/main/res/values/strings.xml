@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppBar</string>
+    <string name="title_home">Home</string>
+    <string name="title_farm_help">FarmHelp</string>
+    <string name="title_farm_videos">FarmVideos</string>
+    <string name="title_inbox">Inbox</string>
+    <string name="title_profile">Profile</string>
+
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/home_selector"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_farm_help"
+        android:icon="@drawable/farmhelp_selector"
+        android:title="@string/title_farm_help" />
+
+    <item
+        android:id="@+id/navigation_farm_videos"
+        android:icon="@drawable/farmvideo_selector"
+        android:title="@string/title_farm_videos" />
+
+    <item
+        android:id="@+id/navigation_inbox"
+        android:icon="@drawable/inbox_selector"
+        android:title="@string/title_inbox" />
+
+
+</menu>
