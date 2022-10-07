@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
 
 import com.example.appbar.databinding.FragmentFarmHelpBinding;
 
@@ -20,7 +22,7 @@ public class FarmHelpFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         FarmHelpViewModel notificationsViewModel =
                 new ViewModelProvider(this).get(FarmHelpViewModel.class);
-
+        Toolbar toolbar = new Toolbar();
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
