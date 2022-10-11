@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
         // using toolbar as ActionBar
 //        setSupportActionBar(toolbar);

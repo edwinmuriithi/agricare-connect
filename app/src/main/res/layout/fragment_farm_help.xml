@@ -9,45 +9,44 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="404dp"
+        android:layout_width="0dp"
         android:layout_height="66dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:gravity="top"
+
         android:text="What challenges are you facing on your farm?"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
-
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="397dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:text="Share your questions on any challenge you are experiencing with your crops or livestock."
         android:textColor="@color/black"
         android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView1"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="400dp"
+        android:layout_width="0dp"
         android:layout_height="61dp"
         android:text="Our expert extension officer will give you a solution right here on FarmHelp!"
-        android:textSize="16dp"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteY="121dp" />
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     <Button

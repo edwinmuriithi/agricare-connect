@@ -22,7 +22,7 @@ public class FarmHelpFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         FarmHelpViewModel notificationsViewModel =
                 new ViewModelProvider(this).get(FarmHelpViewModel.class);
-        Toolbar toolbar = new Toolbar();
+
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
