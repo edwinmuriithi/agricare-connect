@@ -1,8 +1,10 @@
-package com.example.appbar;
+package com.example.appbar.ui.farmhelp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.appbar.R;
 
 public class FarmHelpRecord extends AppCompatActivity {
 

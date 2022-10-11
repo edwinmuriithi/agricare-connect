@@ -14,7 +14,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:gravity="top"
-
         android:text="What challenges are you facing on your farm?"
         android:textColor="@color/black"
         android:textSize="24dp"
