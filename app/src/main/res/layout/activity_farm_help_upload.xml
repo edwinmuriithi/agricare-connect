@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.farmhelp.FarmHelpFragment"
-    >
-
+    tools:context=".ui.farmhelp.FarmHelpUpload">
     <TextView
         android:id="@+id/textView2"
         android:layout_width="0dp"
-        android:layout_height="66dp"
+        android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:gravity="top"
-        android:text="What challenges are you facing on your farm?"
+        android:text="Is this information correct?"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
@@ -28,7 +26,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:text="Share your questions on any challenge you are experiencing with your crops or livestock."
+        android:text="Please take a moment to go through what you have just typed."
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView1"
@@ -40,7 +38,7 @@
         android:id="@+id/textView1"
         android:layout_width="0dp"
         android:layout_height="61dp"
-        android:text="Our expert extension officer will give you a solution right here on FarmHelp!"
+        android:text="In case you need to make any correction, click on the edit button below"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -49,20 +47,47 @@
 
 
     <Button
-        android:id="@+id/submit"
+        android:id="@+id/edit"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/custom_button"
-        android:text="Ask a question"
+        android:text="Submit"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView1"
-        app:layout_constraintVertical_bias="0.124" />
+        app:layout_constraintTop_toBottomOf="@+id/upload" />
 
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/custom_button"
+        android:text="Edit"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine2"
+        android:layout_width="364dp"
+        android:layout_height="370dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/textView1"
+        app:layout_constraintStart_toStartOf="@+id/textView1"
+        tools:layout_editor_absoluteY="181dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
