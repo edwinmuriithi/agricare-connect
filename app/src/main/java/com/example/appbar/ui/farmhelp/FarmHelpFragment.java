@@ -1,22 +1,26 @@
 package com.example.appbar.ui.farmhelp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toolbar;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import com.example.appbar.R;
 import com.example.appbar.databinding.FragmentFarmHelpBinding;
 
 public class FarmHelpFragment extends Fragment {
 
-    private FragmentFarmHelpBinding binding;
+    private FragmentFarmHelpBinding farmHelpBinding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -26,8 +30,25 @@ public class FarmHelpFragment extends Fragment {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        binding = FragmentFarmHelpBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        farmHelpBinding = FragmentFarmHelpBinding.inflate(inflater, container, false);
+        View root = farmHelpBinding.getRoot();
+
+        farmHelpBinding.question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            FarmHelpRecordFragment farmHelpRecordFragment = new FarmHelpRecordFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment_activity_main, farmHelpRecordFragment);
+            transaction.commit();
+                //                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.navigation_farm_help, new FarmHelpRecord());
+//                fragmentTransaction.commit();
+            }
+        });
+
+
+
 
 //       final TextView textView = binding.textFarmHelp;
 //       notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -37,6 +58,6 @@ public class FarmHelpFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        farmHelpBinding = null;
     }
 }

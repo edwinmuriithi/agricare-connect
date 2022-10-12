@@ -21,20 +21,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
-        // using toolbar as ActionBar
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-//        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
-//        toolbar.setTitle("");
-//        toolbar.setSubtitle("");
-//        toolbar.setLogo(R.drawable.logo_selector);
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
@@ -51,14 +43,6 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
-//    // Menu icons are inflated just as they were with actionbar
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.toolbar_nav_menu, menu);
-//        return true;
-//    }
-
 
 
 }
