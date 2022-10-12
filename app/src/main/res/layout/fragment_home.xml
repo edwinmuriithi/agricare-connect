@@ -12,7 +12,7 @@
         android:layout_height="113dp"
         android:layout_marginTop="149dp"
         android:background="@drawable/custom_button_main"
-
+        android:drawableTop="@drawable/logo_farm"
         android:text="Do you have farming questions to ask? Click here to talk to an expert!"
         android:textAllCaps="false"
         android:textColor="@color/black"
@@ -31,6 +31,7 @@
         android:text="Do you want to learn more about farming? Click here to watch farming videos for free!"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        android:drawableTop="@drawable/logo_video"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/farmHealth"
         app:layout_constraintStart_toStartOf="@+id/farmHealth"

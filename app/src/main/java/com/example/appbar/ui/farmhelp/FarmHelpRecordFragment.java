@@ -19,6 +19,12 @@ public class FarmHelpRecordFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding.record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -27,5 +33,7 @@ public class FarmHelpRecordFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentFarmHelpRecordBinding.inflate(inflater,container,false);
         return binding.getRoot();
+        
+
     }
 }
