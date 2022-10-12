@@ -6,49 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="168dp"
-            android:layout_height="136dp"
-            app:srcCompat="@drawable/farmhub_logo"
-            tools:layout_editor_absoluteX="121dp"
-            tools:layout_editor_absoluteY="123dp"
-            />
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="168dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:srcCompat="@drawable/farmhub_logo" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome to"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="158dp"
-            tools:layout_editor_absoluteY="84dp" />
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="158dp"
+        android:text="Welcome to"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="408dp"
-            android:layout_height="113dp"
-            android:background="@drawable/custom_button_main"
-            android:text="Do you have farming questions to ask? Click here to talk to an expert!"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="330dp"
+    <Button
+        android:id="@+id/farmHealth"
+        android:layout_width="350dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/custom_button_main"
+        android:text="Do you have farming questions to ask? Click here to talk to an expert!"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
 
-            />
+        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="407dp"
-            android:layout_height="90dp"
-            android:background="@drawable/custom_button_main"
-            android:text="Do you want to learn more about farming? Click here to watch farming videos for free!"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="4dp"
-            tools:layout_editor_absoluteY="442dp" />
+    <Button
+        android:id="@+id/farmVideo"
+        android:layout_width="350dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/custom_button_main"
+        android:text="Do you want to learn more about farming? Click here to watch farming videos for free!"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/farmHealth"
+        app:layout_constraintStart_toStartOf="@+id/farmHealth"
+        app:layout_constraintTop_toBottomOf="@+id/farmHealth" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
