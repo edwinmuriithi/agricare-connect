@@ -30,8 +30,7 @@ public class FarmVideoFragment extends Fragment {
         //Disable darkmode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        final TextView textView = binding.textFarmVideo;
-        farmVideoViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 

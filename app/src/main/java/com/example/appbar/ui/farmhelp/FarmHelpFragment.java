@@ -39,19 +39,12 @@ public class FarmHelpFragment extends Fragment {
             FarmHelpRecordFragment farmHelpRecordFragment = new FarmHelpRecordFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.nav_host_fragment_activity_main, farmHelpRecordFragment);
-            transaction.commit();
-                //                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.navigation_farm_help, new FarmHelpRecord());
-//                fragmentTransaction.commit();
+            transaction.addToBackStack(null).commit();
+
             }
         });
 
 
-
-
-//       final TextView textView = binding.textFarmHelp;
-//       notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
