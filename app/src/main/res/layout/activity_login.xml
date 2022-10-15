@@ -28,34 +28,34 @@
         app:layout_constraintEnd_toEndOf="@+id/textView9"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        app:srcCompat="@drawable/farmhub_logo" />
+        app:srcCompat="@drawable/farmhub_logo12" />
 
 
     <EditText
-        android:id="@+id/phoneLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/emailLogin"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
-        android:hint="Enter Phone Number"
-        android:inputType="phone"
+        android:hint=" Enter E-mail"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <EditText
         android:id="@+id/passwordLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
-        android:hint="Enter password"
+        android:hint=" Enter Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/phoneLogin"
-        app:layout_constraintStart_toStartOf="@+id/phoneLogin"
-        app:layout_constraintTop_toBottomOf="@+id/phoneLogin" />
+        app:layout_constraintEnd_toEndOf="@+id/emailLogin"
+        app:layout_constraintStart_toStartOf="@+id/emailLogin"
+        app:layout_constraintTop_toBottomOf="@+id/emailLogin" />
 
     <Button
         android:id="@+id/login"
@@ -94,5 +94,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/login" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Or"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/login"
+        app:layout_constraintStart_toStartOf="@+id/login"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <ImageView
+        android:id="@+id/google"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="@+id/login"
+        app:layout_constraintStart_toStartOf="@+id/login"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:srcCompat="@drawable/google" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

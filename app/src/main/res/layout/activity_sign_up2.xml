@@ -4,62 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.SignUpActivity">
+    tools:context=".ui.auth.Sign_up_Activity">
 
     <EditText
         android:id="@+id/fname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
-        android:hint="Enter Full Name"
+        android:hint=" Enter Full Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <EditText
-        android:id="@+id/signUpPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/signUpEmail"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
-        android:hint="Enter phone number"
-        android:inputType="phone"
+        android:hint=" Enter E-mail"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="@+id/fname"
         app:layout_constraintStart_toStartOf="@+id/fname"
         app:layout_constraintTop_toBottomOf="@+id/fname" />
 
     <EditText
         android:id="@+id/signupPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
-        android:hint="Enter Password"
+        android:hint=" Enter Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/signUpPhone"
-        app:layout_constraintStart_toStartOf="@+id/signUpPhone"
-        app:layout_constraintTop_toBottomOf="@+id/signUpPhone" />
+        app:layout_constraintEnd_toEndOf="@+id/signUpEmail"
+        app:layout_constraintStart_toStartOf="@+id/signUpEmail"
+        app:layout_constraintTop_toBottomOf="@+id/signUpEmail" />
 
     <EditText
         android:id="@+id/confirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
-        android:hint="Confirm Password"
+        android:hint=" Confirm Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/signupPassword"
         app:layout_constraintStart_toStartOf="@+id/signupPassword"
         app:layout_constraintTop_toBottomOf="@+id/signupPassword" />
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/signup_btn"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -77,7 +77,7 @@
         app:layout_constraintEnd_toEndOf="@+id/textView9"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        app:srcCompat="@drawable/farmhub_logo" />
+        app:srcCompat="@drawable/farmhub_logo12" />
 
     <TextView
         android:id="@+id/textView9"
