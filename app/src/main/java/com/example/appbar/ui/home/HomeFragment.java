@@ -1,5 +1,7 @@
 package com.example.appbar.ui.home;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appbar.R;
 import com.example.appbar.databinding.FragmentHomeBinding;
+import com.example.appbar.ui.auth.LoginActivity;
+import com.example.appbar.ui.auth.Sign_up_Activity;
 import com.example.appbar.ui.farmhelp.FarmHelpFragment;
 import com.example.appbar.ui.farmhelp.FarmHelpRecordFragment;
 import com.example.appbar.ui.farmvideos.FarmVideoFragment;
@@ -34,10 +38,10 @@ public class HomeFragment extends Fragment {
         binding.farmHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FarmHelpFragment farmHelpFragment = new FarmHelpFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment_activity_main, farmHelpFragment);
-                transaction.addToBackStack(null).commit();
+                Intent i = new Intent(getActivity(), LoginActivity.class);
+                startActivity(i);
+                ((Activity) getActivity()).overridePendingTransition(0, 0);
+
             }
         });
 
