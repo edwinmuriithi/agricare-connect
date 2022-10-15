@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
                 FarmHelpFragment farmHelpFragment = new FarmHelpFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment_activity_main, farmHelpFragment);
-                transaction.commit();
+                transaction.addToBackStack(null).commit();
             }
         });
 
@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
                 FarmVideoFragment farmVideoFragment = new FarmVideoFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment_activity_main, farmVideoFragment);
-                transaction.commit();
+                transaction.addToBackStack(null).commit();
             }
         });
 
