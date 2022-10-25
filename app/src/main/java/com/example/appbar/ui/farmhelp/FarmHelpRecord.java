@@ -25,6 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class FarmHelpRecord extends AppCompatActivity {
 
     private ActivityFarmHelpRecordBinding binding;
+    static final int CAMERA_PIC_REQUEST = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
