@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.farmhelp.FarmHelpRecordFragment">
+    tools:context=".ui.farmhelp.FarmHelpUpload">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -61,11 +61,11 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="0dp"
-        android:layout_height="66dp"
+        android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:gravity="top"
-        android:text="What challenges are you facing on your farm?"
+        android:text="Is this information correct?"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
@@ -77,8 +77,8 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="FarmHelp Enables you to share a video or photo of a problem you have on your farm which requires the advice of an extension officer."
+        android:layout_height="50dp"
+        android:text="Please take a moment to go through what you have just typed."
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView1"
@@ -90,38 +90,68 @@
         android:id="@+id/textView1"
         android:layout_width="0dp"
         android:layout_height="61dp"
-        android:text="We have qualified extension officers registered by the Kenya Veterinary Board who are eager to help you."
+        android:text="In case you need to make any correction, click on the edit button below"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Simply take a video or photo of the challenge on your farm and we will send you detailed recommendation on what to do!"
+
+    <Button
+        android:id="@+id/edit"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/custom_button"
+        android:text="Submit"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload" />
+
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_button"
+        android:text="Edit"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine2"
+        android:layout_width="373dp"
+        android:layout_height="279dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="@+id/textView1"
         app:layout_constraintStart_toStartOf="@+id/textView1"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
-    <Button
-        android:id="@+id/record"
-        android:layout_width="240dp"
-        android:layout_height="70dp"
-        android:background="@drawable/custom_button"
-        android:drawableTop="@drawable/ic_baseline_photo_camera_24"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="Take a photo or video"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        app:itemIconSize="32dp"
+        app:labelVisibilityMode="labeled"
+        android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

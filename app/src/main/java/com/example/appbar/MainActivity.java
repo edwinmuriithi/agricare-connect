@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 
 import com.example.appbar.databinding.ActivityMainBinding;
@@ -30,18 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setItemIconTintList(null);
-        navView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_farm_help, R.id.navigation_farm_videos, R.id.navigation_inbox)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_nav"
+        android:title="Home"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/farmhelp"
+        android:title="FarmHelp"
+        android:icon="@drawable/farmhelp_selector"/>
+
+    <item
+        android:id="@+id/farmvideo"
+        android:title="FarmVideo"
+        android:icon="@drawable/farmvideo_selector"/>
+
+    <item
+        android:id="@+id/inbox_nav"
+        android:title="Inbox"
+        android:icon="@drawable/inbox_selector"/>
+
+</menu>
