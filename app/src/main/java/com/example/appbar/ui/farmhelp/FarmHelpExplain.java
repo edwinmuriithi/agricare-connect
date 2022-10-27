@@ -10,7 +10,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -67,5 +73,30 @@ public class FarmHelpExplain extends AppCompatActivity {
                 return false;
 
         });
+
+        /* Getting ImageURI from Gallery from Main Activity */
+        Uri selectedImgUri = getIntent().getData();
+        if (selectedImgUri != null) {
+            Log.e("Gallery ImageURI", "" + selectedImgUri);
+            String[] selectedImgPath = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImgUri,
+                    selectedImgPath, null, null, null);
+            cursor.moveToFirst();
+
+            int indexCol = cursor.getColumnIndex(selectedImgPath[0]);
+            String imgPath = cursor.getString(indexCol);
+            cursor.close();
+            binding.photoUpload.setImageBitmap(BitmapFactory.decodeFile(imgPath));
+        }
+
+        /* Getting ImageBitmap from Camera from Main Activity */
+        Intent intent_camera = getIntent();
+        Bitmap camera_img_bitmap = (Bitmap) intent_camera
+                .getParcelableExtra("BitmapImage");
+        if (camera_img_bitmap != null) {
+            binding.photoUpload.setImageBitmap(camera_img_bitmap);
+        }
     }
+
 }
