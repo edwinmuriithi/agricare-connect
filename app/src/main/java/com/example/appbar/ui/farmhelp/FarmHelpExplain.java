@@ -1,6 +1,7 @@
 package com.example.appbar.ui.farmhelp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
@@ -22,6 +23,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.appbar.R;
@@ -57,6 +60,18 @@ public class FarmHelpExplain extends AppCompatActivity {
     DatabaseReference databaseReference;
     int Image_Request_Code = 7;
     ProgressDialog progressDialog ;
+    // Folder path for Firebase Storage.
+    String Storage_Path = "All_Image_Uploads/";
+
+    // Creating EditText.
+    EditText ImageName ;
+
+    // Creating ImageView.
+    ImageView SelectImage;
+
+
+    // Root Database Name for Firebase Database.
+    String Database_Path = "All_Image_Uploads_Database";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,8 +139,10 @@ public class FarmHelpExplain extends AppCompatActivity {
             binding.photoUpload.setImageBitmap(camera_img_bitmap);
         }
 
-        storageReference = FirebaseStorage.getInstance().getReference("Images");
-        databaseReference = FirebaseDatabase.getInstance().getReference("Images");
+        storageReference = FirebaseStorage.getInstance().getReference(Storage_Path);
+        databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
+        ImageName = binding.editTextTextMultiLine;
+        SelectImage = binding.photoUpload;
         progressDialog = new ProgressDialog(FarmHelpExplain.this);// context name as per your project name
 
         
@@ -139,9 +156,77 @@ public class FarmHelpExplain extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    private void UploadImage() {
+        // Checking whether FilePathUri Is empty or not.
+        if (FilePathUri != null) {
 
+            // Setting progressDialog Title.
+            progressDialog.setTitle("Image is Uploading...");
+
+            // Showing progressDialog.
+            progressDialog.show();
+
+            // Creating second StorageReference.
+            StorageReference storageReference2nd = storageReference.child(Storage_Path + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
+
+            // Adding addOnSuccessListener to second StorageReference.
+            storageReference2nd.putFile(FilePathUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            // Getting image name from EditText and store into string variable.
+                            String TempImageName = ImageName.getText().toString().trim();
+
+                            // Hiding the progressDialog after done uploading.
+                            progressDialog.dismiss();
+
+                            // Showing toast message after done uploading.
+                            Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
+
+                            @SuppressWarnings("VisibleForTests")
+                            FarmUpload imageUploadInfo = new FarmUpload(TempImageName, taskSnapshot.getStorage().getDownloadUrl().toString());
+
+                            // Getting image upload ID.
+                            String ImageUploadId = databaseReference.push().getKey();
+
+                            // Adding image upload id s child element into databaseReference.
+                            databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
+                        }
+                    })
+                    // If something goes wrong .
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+
+                            // Hiding the progressDialog.
+                            progressDialog.dismiss();
+
+                            // Showing exception erro message.
+                            Toast.makeText(FarmHelpExplain.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    })
+
+                    // On progress change upload time.
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            // Setting progressDialog Title.
+                            progressDialog.setTitle("Image is Uploading...");
+
+                        }
+                    });
+        }
+        else {
+
+            Toast.makeText(FarmHelpExplain.this, "Upload failed", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
@@ -149,8 +234,14 @@ public class FarmHelpExplain extends AppCompatActivity {
             FilePathUri = data.getData();
 
             try {
+
+                // Getting selected image into Bitmap.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
-                binding.photoUpload.setImageBitmap(bitmap);
+
+                // Setting up bitmap selected image into ImageView.
+                SelectImage.setImageBitmap(bitmap);
+
+
             }
             catch (IOException e) {
 
@@ -159,60 +250,93 @@ public class FarmHelpExplain extends AppCompatActivity {
         }
     }
 
-
+    // Creating Method to get the selected image file Extension from File Path URI.
     public String GetFileExtension(Uri uri) {
 
         ContentResolver contentResolver = getContentResolver();
+
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+
+        // Returning the file Extension.
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
 
     }
-
-
-
-    private void UploadImage() {
-        if (FilePathUri != null) {
-
-            progressDialog.setTitle("Image is Uploading...");
-            progressDialog.show();
-            StorageReference storageReference2 = storageReference.child("images/"+ UUID.randomUUID().toString());
-            storageReference2.putFile(FilePathUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-//                            String TempImageName = binding.editTextTextMultiLine.getText().toString().trim();
-//                            progressDialog.dismiss();
-//                            Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
-//                            @SuppressWarnings("VisibleForTests")
-//                            FarmUpload imageUploadInfo = new FarmUpload(TempImageName, taskSnapshot.getUploadSessionUri().toString());
-//                            String ImageUploadId = databaseReference.push().getKey();
-//                            databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
-
-                            progressDialog.dismiss();
-                                    Toast.makeText(FarmHelpExplain.this, "Uploaded successfully", Toast.LENGTH_SHORT).show();
-                                    String imageUrl = taskSnapshot.getStorage().getDownloadUrl().toString(); /* Fetch url image */
-                                    Picasso.with(getBaseContext()).load(imageUrl).into(binding.photoUpload);
-                                    
-                                    /* use picasso to fetch url and display image */
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(FarmHelpExplain.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                    double progress_time = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                                    progressDialog.setMessage("Uploaded "+(int)progress_time+" %");
-                                }
-                            });
-                        }
-        else {
-
-            Toast.makeText(FarmHelpExplain.this, "Unable to upload", Toast.LENGTH_LONG).show();
-
-        }
-    }
 }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//
+//            FilePathUri = data.getData();
+//
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
+//                binding.photoUpload.setImageBitmap(bitmap);
+//            }
+//            catch (IOException e) {
+//
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
+//
+//    public String GetFileExtension(Uri uri) {
+//
+//        ContentResolver contentResolver = getContentResolver();
+//        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+//        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
+//
+//    }
+//
+//
+//
+//    private void UploadImage() {
+//        if (FilePathUri != null) {
+//
+//            progressDialog.setTitle("Image is Uploading...");
+//            progressDialog.show();
+//            StorageReference storageReference2 = storageReference.child("images/"+ UUID.randomUUID().toString());
+//            storageReference2.putFile(FilePathUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//
+////                            String TempImageName = binding.editTextTextMultiLine.getText().toString().trim();
+////                            progressDialog.dismiss();
+////                            Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
+////                            @SuppressWarnings("VisibleForTests")
+////                            FarmUpload imageUploadInfo = new FarmUpload(TempImageName, taskSnapshot.getUploadSessionUri().toString());
+////                            String ImageUploadId = databaseReference.push().getKey();
+////                            databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
+//
+//                            progressDialog.dismiss();
+//                                    Toast.makeText(FarmHelpExplain.this, "Uploaded successfully", Toast.LENGTH_SHORT).show();
+//                                    String imageUrl = taskSnapshot.getStorage().getDownloadUrl().toString(); /* Fetch url image */
+//                                    Picasso.with(getBaseContext()).load(imageUrl).into(binding.photoUpload);
+//
+//                                    /* use picasso to fetch url and display image */
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    progressDialog.dismiss();
+//                                    Toast.makeText(FarmHelpExplain.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                }
+//                            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    double progress_time = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+//                                    progressDialog.setMessage("Uploaded "+(int)progress_time+" %");
+//                                }
+//                            });
+//                        }
+//        else {
+//
+//            Toast.makeText(FarmHelpExplain.this, "Unable to upload", Toast.LENGTH_LONG).show();
+//
+//        }
+//    }
+//}
