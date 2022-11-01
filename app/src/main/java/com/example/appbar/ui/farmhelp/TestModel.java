@@ -1,14 +1,14 @@
 package com.example.appbar.ui.farmhelp;
 
-public class FarmUpload {
+public class TestModel {
     public String imageName;
 
     public String imageURL;
 
-    public FarmUpload() {
+    public TestModel() {
     }
 
-    public FarmUpload(String imageName, String imageURL) {
+    public TestModel(String imageName, String imageURL) {
         this.imageName = imageName;
         this.imageURL = imageURL;
     }

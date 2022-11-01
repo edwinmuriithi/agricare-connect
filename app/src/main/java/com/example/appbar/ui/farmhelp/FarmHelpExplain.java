@@ -1,5 +1,7 @@
 package com.example.appbar.ui.farmhelp;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,17 +56,17 @@ import java.util.UUID;
 
 public class FarmHelpExplain extends AppCompatActivity {
 
-   private ActivityFarmHelpExplainBinding binding;
+    private ActivityFarmHelpExplainBinding binding;
     Uri FilePathUri;
     StorageReference storageReference;
     DatabaseReference databaseReference;
     int Image_Request_Code = 7;
-    ProgressDialog progressDialog ;
+    ProgressDialog progressDialog;
     // Folder path for Firebase Storage.
     String Storage_Path = "All_Image_Uploads/";
 
     // Creating EditText.
-    EditText ImageName ;
+    EditText ImageName;
 
     // Creating ImageView.
     ImageView SelectImage;
@@ -82,7 +84,7 @@ public class FarmHelpExplain extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         // Initialize and assign variable
-        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
 
         // Set Home selected
         bottomNavigationView.setSelectedItemId(R.id.navigation_farm_help);
@@ -93,25 +95,24 @@ public class FarmHelpExplain extends AppCompatActivity {
 
         // Perform item selected listener
         bottomNavigationView.setOnItemSelectedListener(item -> {
-                switch(item.getItemId())
-                {
-                    case R.id.navigation_home:
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navigation_farm_help:
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.navigation_farm_help:
 
-                        return true;
-                    case R.id.navigation_farm_videos:
-                        startActivity(new Intent(getApplicationContext(), FarmVideo.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navigation_inbox:
-                        startActivity(new Intent(getApplicationContext(), InboxActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
+                    return true;
+                case R.id.navigation_farm_videos:
+                    startActivity(new Intent(getApplicationContext(), FarmVideo.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.navigation_inbox:
+                    startActivity(new Intent(getApplicationContext(), InboxActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+            }
+            return false;
 
         });
 
@@ -119,7 +120,7 @@ public class FarmHelpExplain extends AppCompatActivity {
         Uri selectedImgUri = getIntent().getData();
         if (selectedImgUri != null) {
             Log.e("Gallery ImageURI", "" + selectedImgUri);
-            String[] selectedImgPath = { MediaStore.Images.Media.DATA };
+            String[] selectedImgPath = {MediaStore.Images.Media.DATA};
 
             Cursor cursor = getContentResolver().query(selectedImgUri,
                     selectedImgPath, null, null, null);
@@ -127,14 +128,14 @@ public class FarmHelpExplain extends AppCompatActivity {
 
             int indexCol = cursor.getColumnIndex(selectedImgPath[0]);
             String imgPath = cursor.getString(indexCol);
+//            FilePathUri = Uri.parse(imgPath);
             cursor.close();
             binding.photoUpload.setImageBitmap(BitmapFactory.decodeFile(imgPath));
         }
 
         /* Getting ImageBitmap from Camera from FarmRecord Activity */
         Intent intent_camera = getIntent();
-        Bitmap camera_img_bitmap = (Bitmap) intent_camera
-                .getParcelableExtra("BitmapImage");
+        Bitmap camera_img_bitmap = (Bitmap) intent_camera.getParcelableExtra("BitmapImage");
         if (camera_img_bitmap != null) {
             binding.photoUpload.setImageBitmap(camera_img_bitmap);
         }
@@ -145,16 +146,60 @@ public class FarmHelpExplain extends AppCompatActivity {
         SelectImage = binding.photoUpload;
         progressDialog = new ProgressDialog(FarmHelpExplain.this);// context name as per your project name
 
-        
+
         binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 UploadImage();
-
+//                Intent intent = new Intent();
+//                intent
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(Intent.createChooser(intent,"", Image_Request_Code));
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        Log.d("myTag", "This is my message", resultCode,resultCode ,data);
+        System.out.println(resultCode);
+        System.out.println(data);
+        System.out.println(requestCode);
+        if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            FilePathUri = data.getData();
+            Log.d("myTag", "This is my message");
+
+            try {
+
+                // Getting selected image into Bitmap.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
+
+                // Setting up bitmap selected image into ImageView.
+                binding.photoUpload.setImageBitmap(bitmap);
+
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Creating Method to get the selected image file Extension from File Path URI.
+    public String GetFileExtension(Uri uri) {
+
+        ContentResolver contentResolver = getContentResolver();
+
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+
+        // Returning the file Extension.
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+
+    }
+
 
     private void UploadImage() {
         // Checking whether FilePathUri Is empty or not.
@@ -177,6 +222,7 @@ public class FarmHelpExplain extends AppCompatActivity {
 
                             // Getting image name from EditText and store into string variable.
                             String TempImageName = ImageName.getText().toString().trim();
+                            ImageName.getText().clear();
 
                             // Hiding the progressDialog after done uploading.
                             progressDialog.dismiss();
@@ -185,7 +231,7 @@ public class FarmHelpExplain extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
 
                             @SuppressWarnings("VisibleForTests")
-                            FarmUpload imageUploadInfo = new FarmUpload(TempImageName, taskSnapshot.getStorage().getDownloadUrl().toString());
+                            FarmUpload imageUploadInfo = new FarmUpload(TempImageName, taskSnapshot.getUploadSessionUri().toString());
 
                             // Getting image upload ID.
                             String ImageUploadId = databaseReference.push().getKey();
@@ -217,51 +263,14 @@ public class FarmHelpExplain extends AppCompatActivity {
 
                         }
                     });
-        }
-        else {
+        } else {
 
             Toast.makeText(FarmHelpExplain.this, "Upload failed", Toast.LENGTH_LONG).show();
 
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-            FilePathUri = data.getData();
-
-            try {
-
-                // Getting selected image into Bitmap.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
-
-                // Setting up bitmap selected image into ImageView.
-                SelectImage.setImageBitmap(bitmap);
-
-
-            }
-            catch (IOException e) {
-
-                e.printStackTrace();
-            }
-        }
-    }
-
-    // Creating Method to get the selected image file Extension from File Path URI.
-    public String GetFileExtension(Uri uri) {
-
-        ContentResolver contentResolver = getContentResolver();
-
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-
-        // Returning the file Extension.
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
-
-    }
 }
+
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {

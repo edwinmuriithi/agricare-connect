@@ -85,6 +85,7 @@ public class FarmHelpRecord extends AppCompatActivity {
         binding.record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 askCameraPermissions();
             }
         });
