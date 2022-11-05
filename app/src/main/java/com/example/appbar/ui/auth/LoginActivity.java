@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.example.appbar.MainActivity;
 import com.example.appbar.R;
 import com.example.appbar.databinding.ActivityLoginBinding;
+import com.example.appbar.ui.farmhelp.FarmHelp;
+import com.example.appbar.ui.farmhelp.FarmHelpSuccess;
+import com.example.appbar.ui.home.HomeActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -65,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (firebaseUser != null) {
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
@@ -153,8 +156,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(), ContactsContract.Profile.class);
-                            startActivity(intent);
+                            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(i);
 
                         } else {
                             Toast.makeText(LoginActivity.this, "Sorry auth failed.", Toast.LENGTH_SHORT).show();
@@ -183,6 +186,8 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
 
                         progressDialog.dismiss();
+                        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(i);
 
 
                         if (!task.isSuccessful()) {

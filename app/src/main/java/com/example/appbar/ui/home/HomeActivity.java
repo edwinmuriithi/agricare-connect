@@ -17,7 +17,9 @@ import android.view.View;
 import com.example.appbar.R;
 import com.example.appbar.databinding.ActivityFarmVideoBinding;
 import com.example.appbar.databinding.ActivityHomeBinding;
+import com.example.appbar.ui.auth.LoginActivity;
 import com.example.appbar.ui.farmhelp.FarmHelp;
+import com.example.appbar.ui.farmhelp.FarmHelpSuccess;
 import com.example.appbar.ui.farmvideos.FarmVideo;
 import com.example.appbar.ui.inbox.InboxActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -75,8 +77,8 @@ public class HomeActivity extends AppCompatActivity {
         binding.farmHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), FarmHelp.class));
-                overridePendingTransition(0,0);
+                Intent i = new Intent(getApplicationContext(), FarmHelp.class);
+                startActivity(i);
 
             }
         });
@@ -84,8 +86,8 @@ public class HomeActivity extends AppCompatActivity {
         binding.farmVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), FarmVideo.class));
-                overridePendingTransition(0,0);
+                Intent i = new Intent(getApplicationContext(), FarmVideo.class);
+                startActivity(i);
             }
         });
     }

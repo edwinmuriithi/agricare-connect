@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -57,23 +58,33 @@ import java.util.UUID;
 public class FarmHelpExplain extends AppCompatActivity {
 
     private ActivityFarmHelpExplainBinding binding;
-    Uri FilePathUri;
-    StorageReference storageReference;
-    DatabaseReference databaseReference;
-    int Image_Request_Code = 7;
-    ProgressDialog progressDialog;
     // Folder path for Firebase Storage.
     String Storage_Path = "All_Image_Uploads/";
 
+    // Root Database Name for Firebase Database.
+    String Database_Path = "All_Image_Uploads_Database";
+
+    // Creating button.
+    Button ChooseButton, UploadButton;
+
     // Creating EditText.
-    EditText ImageName;
+    EditText ImageName ;
 
     // Creating ImageView.
     ImageView SelectImage;
 
+    // Creating URI.
+    Uri FilePathUri;
 
-    // Root Database Name for Firebase Database.
-    String Database_Path = "All_Image_Uploads_Database";
+    // Creating StorageReference and DatabaseReference object.
+    StorageReference storageReference;
+    DatabaseReference databaseReference;
+
+    // Image request code for onActivityResult() .
+    int Image_Request_Code = 7;
+
+    ProgressDialog progressDialog ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,61 +127,62 @@ public class FarmHelpExplain extends AppCompatActivity {
 
         });
 
-        /* Getting ImageURI from Gallery from FarmRecord Activity */
-        Uri selectedImgUri = getIntent().getData();
-        if (selectedImgUri != null) {
-            Log.e("Gallery ImageURI", "" + selectedImgUri);
-            String[] selectedImgPath = {MediaStore.Images.Media.DATA};
+        storageReference = FirebaseStorage.getInstance().getReference();
 
-            Cursor cursor = getContentResolver().query(selectedImgUri,
-                    selectedImgPath, null, null, null);
-            cursor.moveToFirst();
-
-            int indexCol = cursor.getColumnIndex(selectedImgPath[0]);
-            String imgPath = cursor.getString(indexCol);
-//            FilePathUri = Uri.parse(imgPath);
-            cursor.close();
-            binding.photoUpload.setImageBitmap(BitmapFactory.decodeFile(imgPath));
-        }
-
-        /* Getting ImageBitmap from Camera from FarmRecord Activity */
-        Intent intent_camera = getIntent();
-        Bitmap camera_img_bitmap = (Bitmap) intent_camera.getParcelableExtra("BitmapImage");
-        if (camera_img_bitmap != null) {
-            binding.photoUpload.setImageBitmap(camera_img_bitmap);
-        }
-
-        storageReference = FirebaseStorage.getInstance().getReference(Storage_Path);
+        // Assign FirebaseDatabase instance with root database name.
         databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
-        ImageName = binding.editTextTextMultiLine;
-        SelectImage = binding.photoUpload;
-        progressDialog = new ProgressDialog(FarmHelpExplain.this);// context name as per your project name
 
+        //Assign ID'S to button.
+        ChooseButton = (Button)findViewById(R.id.gallery);
+        UploadButton = (Button)findViewById(R.id.next);
 
-        binding.next.setOnClickListener(new View.OnClickListener() {
+        // Assign ID's to EditText.
+        ImageName = (EditText)findViewById(R.id.editTextTextMultiLine);
+
+        // Assign ID'S to image view.
+        SelectImage = (ImageView)findViewById(R.id.photoUpload);
+
+        // Assigning Id to ProgressDialog.
+        progressDialog = new ProgressDialog(FarmHelpExplain.this);
+
+        // Adding click listener to Choose image button.
+        ChooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                UploadImage();
-//                Intent intent = new Intent();
-//                intent
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(Intent.createChooser(intent,"", Image_Request_Code));
+                // Creating intent.
+                Intent intent = new Intent();
+
+                // Setting intent type as image to select image from phone storage.
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Please Select Image"), Image_Request_Code);
+
+            }
+        });
+
+
+        // Adding click listener to Upload image button.
+        UploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Calling method to upload selected image on Firebase storage.
+                UploadImageFileToFirebaseStorage();
+
+
             }
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
-//        Log.d("myTag", "This is my message", resultCode,resultCode ,data);
-        System.out.println(resultCode);
-        System.out.println(data);
-        System.out.println(requestCode);
+
         if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             FilePathUri = data.getData();
-            Log.d("myTag", "This is my message");
 
             try {
 
@@ -178,10 +190,13 @@ public class FarmHelpExplain extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
 
                 // Setting up bitmap selected image into ImageView.
-                binding.photoUpload.setImageBitmap(bitmap);
+                SelectImage.setImageBitmap(bitmap);
 
+                // After selecting image change choose button above text.
+                ChooseButton.setText("Image Selected");
 
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
 
                 e.printStackTrace();
             }
@@ -196,12 +211,13 @@ public class FarmHelpExplain extends AppCompatActivity {
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
 
         // Returning the file Extension.
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
 
     }
 
+    // Creating UploadImageFileToFirebaseStorage method to upload image on storage.
+    public void UploadImageFileToFirebaseStorage() {
 
-    private void UploadImage() {
         // Checking whether FilePathUri Is empty or not.
         if (FilePathUri != null) {
 
@@ -222,7 +238,6 @@ public class FarmHelpExplain extends AppCompatActivity {
 
                             // Getting image name from EditText and store into string variable.
                             String TempImageName = ImageName.getText().toString().trim();
-                            ImageName.getText().clear();
 
                             // Hiding the progressDialog after done uploading.
                             progressDialog.dismiss();
@@ -231,13 +246,19 @@ public class FarmHelpExplain extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
 
                             @SuppressWarnings("VisibleForTests")
-                            FarmUpload imageUploadInfo = new FarmUpload(TempImageName, taskSnapshot.getUploadSessionUri().toString());
+                            FarmUpload imageUploadInfo = new FarmUpload(TempImageName, taskSnapshot.getStorage().getDownloadUrl().toString());
 
                             // Getting image upload ID.
                             String ImageUploadId = databaseReference.push().getKey();
 
                             // Adding image upload id s child element into databaseReference.
                             databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
+
+                            Intent i = new Intent(getApplicationContext(), FarmHelpSuccess.class);
+                            startActivity(i);
+
+
+
                         }
                     })
                     // If something goes wrong .
@@ -263,12 +284,14 @@ public class FarmHelpExplain extends AppCompatActivity {
 
                         }
                     });
-        } else {
+        }
+        else {
 
-            Toast.makeText(FarmHelpExplain.this, "Upload failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(FarmHelpExplain.this, "Please Select Image or Add Image Name", Toast.LENGTH_LONG).show();
 
         }
     }
+
 }
 
 

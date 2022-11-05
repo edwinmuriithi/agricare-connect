@@ -66,5 +66,21 @@ public class FarmHelpSuccess extends AppCompatActivity {
                 return false;
 
         });
+
+        binding.askAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), FarmHelpRecord.class);
+                startActivity(i);
+            }
+        });
+
+        binding.home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
