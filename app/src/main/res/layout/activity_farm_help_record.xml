@@ -110,6 +110,7 @@
         android:id="@+id/record"
         android:layout_width="240dp"
         android:layout_height="70dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/custom_button"
         android:drawableTop="@drawable/ic_baseline_photo_camera_24"
         android:paddingTop="5dp"
@@ -118,11 +119,31 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/record2"
+        android:layout_width="240dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="175dp"
+        android:background="@drawable/custom_button"
+        android:drawableTop="@drawable/ic_baseline_browse_gallery_24"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Choose from gallary"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record"
+        app:layout_constraintVertical_bias="0.471" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
