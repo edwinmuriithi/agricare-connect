@@ -66,7 +66,7 @@ public class Sign_up_Activity extends AppCompatActivity {
 
         //capture input from user.
         final String name = binding.fname.getText().toString().trim();
-        final String email = binding.signUpEmail.getText().toString().trim();
+        final String email = binding.signUpPhone.getText().toString().trim();
         String password = binding.signupPassword.getText().toString().trim();
         String confirmPassword = binding.confirmPassword.getText().toString().trim();
 
@@ -168,7 +168,7 @@ public class Sign_up_Activity extends AppCompatActivity {
 
         if (!isGoodEmail) {
 
-            binding.signUpEmail.setError("Please enter a valid email address");
+            binding.signUpPhone.setError("Please enter a valid email address");
             return false;
 
         }

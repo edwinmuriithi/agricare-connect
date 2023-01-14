@@ -20,17 +20,30 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <EditText
-        android:id="@+id/signUpEmail"
+        android:id="@+id/signUpPhone"
         android:layout_width="250dp"
         android:layout_height="35dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
-        android:hint=" Enter E-mail"
-        android:inputType="textEmailAddress"
+        android:hint=" Enter Phone Number"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="@+id/fname"
         app:layout_constraintStart_toStartOf="@+id/fname"
         app:layout_constraintTop_toBottomOf="@+id/fname" />
+
+    <EditText
+        android:id="@+id/confirmPhone"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint=" Confirm Phone Number"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@+id/signUpPhone"
+        app:layout_constraintStart_toStartOf="@+id/signUpPhone"
+        app:layout_constraintTop_toBottomOf="@+id/signUpPhone" />
 
     <EditText
         android:id="@+id/signupPassword"
@@ -41,9 +54,9 @@
         android:ems="10"
         android:hint=" Enter Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/signUpEmail"
-        app:layout_constraintStart_toStartOf="@+id/signUpEmail"
-        app:layout_constraintTop_toBottomOf="@+id/signUpEmail" />
+        app:layout_constraintEnd_toEndOf="@+id/confirmPhone"
+        app:layout_constraintStart_toStartOf="@+id/confirmPhone"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPhone" />
 
     <EditText
         android:id="@+id/confirmPassword"

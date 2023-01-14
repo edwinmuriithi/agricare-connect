@@ -24,6 +24,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.appbar.R;
@@ -46,6 +47,9 @@ import java.util.Date;
 public class FarmHelpRecord extends AppCompatActivity {
 
     private ActivityFarmHelpRecordBinding binding;
+    Button ChooseButton;
+    // Image request code for onActivityResult() .
+    int Image_Request_Code = 7;
     String currentImagePath = null;
     private  static final int IMAGE_REQUEST =1;
 
@@ -93,6 +97,25 @@ public class FarmHelpRecord extends AppCompatActivity {
                 return false;
 
         });
+        ChooseButton = (Button)findViewById(R.id.gallery);
+
+        // Adding click listener to Choose image button.
+        ChooseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Creating intent.
+                Intent intent = new Intent();
+
+                // Setting intent type as image to select image from phone storage.
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Please Select Image"), Image_Request_Code);
+
+            }
+        });
+
+
 
         binding.record.setOnClickListener(new View.OnClickListener() {
             @Override

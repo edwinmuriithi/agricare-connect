@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                email = binding.emailLogin.getText().toString().trim();
+                email = binding.phoneLogin.getText().toString().trim();
                 password = binding.passwordLogin.getText().toString().trim();
 
                 Toast.makeText(LoginActivity.this, email + " " + password, Toast.LENGTH_SHORT).show();
