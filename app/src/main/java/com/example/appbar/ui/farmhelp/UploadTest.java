@@ -13,27 +13,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.example.appbar.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 import java.io.IOException;
-
-import com.example.appbar.databinding.ActivityFarmhelpBinding;
 import com.example.appbar.databinding.ActivityUploadTestBinding;
 
 public class UploadTest extends AppCompatActivity {
@@ -58,10 +42,6 @@ public class UploadTest extends AppCompatActivity {
     // Creating URI.
     Uri FilePathUri;
 
-    // Creating StorageReference and DatabaseReference object.
-    StorageReference storageReference;
-    DatabaseReference databaseReference;
-
     // Image request code for onActivityResult() .
     int Image_Request_Code = 7;
 
@@ -74,21 +54,16 @@ public class UploadTest extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        // Assign FirebaseStorage instance to storageReference.
-        storageReference = FirebaseStorage.getInstance().getReference();
-
-        // Assign FirebaseDatabase instance with root database name.
-        databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
 
         //Assign ID'S to button.
-        ChooseButton = (Button)findViewById(R.id.ButtonChooseImage);
-        UploadButton = (Button)findViewById(R.id.ButtonUploadImage);
+        ChooseButton = (Button) findViewById(R.id.ButtonChooseImage);
+        UploadButton = (Button) findViewById(R.id.ButtonUploadImage);
 
         // Assign ID's to EditText.
-        ImageName = (EditText)findViewById(R.id.ImageNameEditText);
+        ImageName = (EditText) findViewById(R.id.ImageNameEditText);
 
         // Assign ID'S to image view.
-        SelectImage = (ImageView)findViewById(R.id.ShowImageView);
+        SelectImage = (ImageView) findViewById(R.id.ShowImageView);
 
         // Assigning Id to ProgressDialog.
         progressDialog = new ProgressDialog(UploadTest.this);
@@ -110,16 +85,6 @@ public class UploadTest extends AppCompatActivity {
         });
 
 
-        // Adding click listener to Upload image button.
-        UploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Calling method to upload selected image on Firebase storage.
-                UploadImageFileToFirebaseStorage();
-
-            }
-        });
     }
 
     @Override
@@ -160,77 +125,6 @@ public class UploadTest extends AppCompatActivity {
         // Returning the file Extension.
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
 
-    }
-
-    // Creating UploadImageFileToFirebaseStorage method to upload image on storage.
-    public void UploadImageFileToFirebaseStorage() {
-
-        // Checking whether FilePathUri Is empty or not.
-        if (FilePathUri != null) {
-
-            // Setting progressDialog Title.
-            progressDialog.setTitle("Image is Uploading...");
-
-            // Showing progressDialog.
-            progressDialog.show();
-
-            // Creating second StorageReference.
-            StorageReference storageReference2nd = storageReference.child(Storage_Path + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
-
-            // Adding addOnSuccessListener to second StorageReference.
-            storageReference2nd.putFile(FilePathUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            // Getting image name from EditText and store into string variable.
-                            String TempImageName = ImageName.getText().toString().trim();
-
-                            // Hiding the progressDialog after done uploading.
-                            progressDialog.dismiss();
-
-                            // Showing toast message after done uploading.
-                            Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
-
-                            @SuppressWarnings("VisibleForTests")
-                            TestModel imageUploadInfo = new TestModel(TempImageName, taskSnapshot.getStorage().getDownloadUrl().toString());
-
-                            // Getting image upload ID.
-                            String ImageUploadId = databaseReference.push().getKey();
-
-                            // Adding image upload id s child element into databaseReference.
-                            databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
-                        }
-                    })
-                    // If something goes wrong .
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-
-                            // Hiding the progressDialog.
-                            progressDialog.dismiss();
-
-                            // Showing exception erro message.
-                            Toast.makeText(UploadTest.this, exception.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    })
-
-                    // On progress change upload time.
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            // Setting progressDialog Title.
-                            progressDialog.setTitle("Image is Uploading...");
-
-                        }
-                    });
-        }
-        else {
-
-            Toast.makeText(UploadTest.this, "Please Select Image or Add Image Name", Toast.LENGTH_LONG).show();
-
-        }
     }
 
 }

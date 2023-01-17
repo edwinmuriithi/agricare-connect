@@ -29,15 +29,10 @@ import android.widget.Toast;
 
 import com.example.appbar.R;
 import com.example.appbar.databinding.ActivityFarmHelpRecordBinding;
-import com.example.appbar.databinding.ActivityFarmhelpBinding;
 import com.example.appbar.ui.farmvideos.FarmVideo;
 import com.example.appbar.ui.home.HomeActivity;
 import com.example.appbar.ui.inbox.InboxActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
