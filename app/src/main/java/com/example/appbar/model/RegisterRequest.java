@@ -6,78 +6,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class RegisterRequest {
 
-    @SerializedName("id")
-    @Expose
-    private String id;
-    @SerializedName("createdAt")
-    @Expose
-    private String createdAt;
-    @SerializedName("updatedAt")
-    @Expose
-    private String updatedAt;
-    @SerializedName("names")
-    @Expose
-    private String names;
-    @SerializedName("email")
-    @Expose
-    private Object email;
-    @SerializedName("role")
-    @Expose
-    private String role;
-    @SerializedName("phone")
-    @Expose
-    private String phone;
+   private String phone;
+   private String names;
+   private String password;
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public RegisterRequest() {
+    public String getPhone() {
+        return phone;
     }
 
-    /**
-     * 
-     * @param createdAt
-     * @param names
-     * @param role
-     * @param phone
-     * @param id
-     * @param email
-     * @param updatedAt
-     */
-    public RegisterRequest(String id, String createdAt, String updatedAt, String names, Object email, String role, String phone) {
-        super();
-        this.id = id;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.names = names;
-        this.email = email;
-        this.role = role;
+    public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public String getNames() {
@@ -88,28 +26,11 @@ public class RegisterRequest {
         this.names = names;
     }
 
-    public Object getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEmail(Object email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
 }

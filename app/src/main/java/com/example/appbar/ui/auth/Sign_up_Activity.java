@@ -4,10 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.appbar.api.ApiClient;
 import com.example.appbar.databinding.ActivitySignUp2Binding;
+import com.example.appbar.model.RegisterRequest;
+import com.example.appbar.model.RegisterResponse;
+import com.example.appbar.ui.home.HomeActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Sign_up_Activity extends AppCompatActivity {
 
@@ -21,27 +31,33 @@ public class Sign_up_Activity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        binding.signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (view ==binding.signupBtn){
-                    createNewUser();
-                }
-            }
-        });
-
         binding.loginSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Sign_up_Activity.this, LoginActivity.class);
                 startActivity(intent);
-
             }
         });
 
+        binding.signupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(binding.fname.getText().toString().trim()) || TextUtils.isEmpty(binding.signUpPhone.getText().toString().trim()) ||
+                        TextUtils.isEmpty(binding.signUpPhone.getText().toString().trim())) {
+                    String message = "Please fill in all fields";
+                    Toast.makeText(Sign_up_Activity.this, message, Toast.LENGTH_SHORT).show();
+                }else{
+                    RegisterRequest registerRequest = new RegisterRequest();
+                    registerRequest.setNames(binding.fname.getText().toString().trim());
+                    registerRequest.setPhone(binding.signUpPhone.getText().toString().trim());
+                    registerRequest.setPassword(binding.signupPassword.getText().toString().trim());
+                    createNewUser(registerRequest);
+                }
+            }
+        });
     }
 
-    private void createNewUser() {
+    private void createNewUser(RegisterRequest registerRequest) {
         userName = binding.fname.getText().toString().trim();
 
         //capture input from user.
@@ -55,28 +71,28 @@ public class Sign_up_Activity extends AppCompatActivity {
         boolean validUserName = isValidUserName(name);
         boolean validPassword = isValidPassword(password, confirmPassword);
         if (!validPhone || !validUserName || !validPassword) return;
-//
-//        Call<ResponseBody> call = RetrofitClient
-//                .getInstance()
-//                .getApi()
-//                .registerUser(name,phone,password);
-//
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                //                    if(response.body() != null) {
-//                String responseServer = response.body().toString();
-//                Toast.makeText(Sign_up_Activity.this, responseServer, Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(Sign_up_Activity.this, HomeActivity.class);
-//                startActivity(intent);
-////                    }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Toast.makeText(Sign_up_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
+
+        Call<RegisterResponse> registerResponseCall = ApiClient.getUserService().registerUser(registerRequest);
+        registerResponseCall.enqueue(new Callback<RegisterResponse>() {
+            @Override
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                if (response.isSuccessful()){
+                    String message = "Registration Successful";
+                    Toast.makeText(Sign_up_Activity.this, message, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Sign_up_Activity.this,LoginActivity.class));
+                    finish();
+
+                }else{
+                     String message = "An error occurred please try again";
+                    Toast.makeText(Sign_up_Activity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                Toast.makeText(Sign_up_Activity.this, "Throwable "+ t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private boolean isValidPassword(String password, String confirmPassword) {
@@ -108,8 +124,6 @@ public class Sign_up_Activity extends AppCompatActivity {
         }
         return isGoodPhone;
     }
-
-
 }
 
 

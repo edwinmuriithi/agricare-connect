@@ -64,10 +64,6 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     //proceed
                     login();
-                    Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-
-
                 }
             }
         });
@@ -86,6 +82,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
                 }else{
                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                 }
