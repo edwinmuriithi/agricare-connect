@@ -20,6 +20,7 @@ import com.example.appbar.databinding.ActivityMainBinding;
 import com.example.appbar.ui.farmvideos.FarmVideo;
 import com.example.appbar.ui.home.HomeActivity;
 import com.example.appbar.ui.inbox.InboxActivity;
+import com.example.appbar.ui.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FarmHelp extends AppCompatActivity {
@@ -76,7 +77,13 @@ public class FarmHelp extends AppCompatActivity {
                 overridePendingTransition(0,0);
             }
         });
+        binding.myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FarmHelp.this, ProfileActivity.class));
+                finish();
 
-
+            }
+        });
 }
 }

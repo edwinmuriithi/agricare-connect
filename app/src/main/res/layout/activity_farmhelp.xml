@@ -30,7 +30,7 @@
                     app:srcCompat="@drawable/farmhelp_logoo" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/myProfile"
                     android:layout_width="33dp"
                     android:layout_height="33dp"
                     android:layout_marginTop="3dp"
@@ -49,10 +49,10 @@
                     android:text="My Profile"
                     android:textSize="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                    app:layout_constraintEnd_toEndOf="@+id/myProfile"
                     app:layout_constraintHorizontal_bias="0.636"
-                    app:layout_constraintStart_toStartOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                    app:layout_constraintStart_toStartOf="@+id/myProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/myProfile" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

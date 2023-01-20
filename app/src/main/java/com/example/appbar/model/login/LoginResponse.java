@@ -1,5 +1,5 @@
 
-package com.example.appbar.model;
+package com.example.appbar.model.login;
 
 
 import com.google.gson.annotations.Expose;

@@ -1,7 +1,8 @@
 
-package com.example.appbar.model;
+package com.example.appbar.model.signup;
 
 
+import com.example.appbar.model.signup.RegisterRequest;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

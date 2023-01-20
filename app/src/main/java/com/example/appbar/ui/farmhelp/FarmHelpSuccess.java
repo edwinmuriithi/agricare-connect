@@ -20,6 +20,7 @@ import com.example.appbar.databinding.ActivityFarmHelpSuccessBinding;
 import com.example.appbar.ui.farmvideos.FarmVideo;
 import com.example.appbar.ui.home.HomeActivity;
 import com.example.appbar.ui.inbox.InboxActivity;
+import com.example.appbar.ui.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FarmHelpSuccess extends AppCompatActivity {
@@ -80,6 +81,14 @@ public class FarmHelpSuccess extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(i);
+            }
+        });
+
+        binding.myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FarmHelpSuccess.this, ProfileActivity.class));
+                finish();
             }
         });
     }

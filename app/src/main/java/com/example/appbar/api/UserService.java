@@ -1,14 +1,15 @@
 package com.example.appbar.api;
 
-import com.example.appbar.model.LoginRequest;
-import com.example.appbar.model.LoginResponse;
-import com.example.appbar.model.RegisterRequest;
-import com.example.appbar.model.RegisterResponse;
+import com.example.appbar.model.login.LoginRequest;
+import com.example.appbar.model.login.LoginResponse;
+import com.example.appbar.model.signup.RegisterRequest;
+import com.example.appbar.model.signup.RegisterResponse;
+import com.example.appbar.model.profile.ProfileRequest;
+import com.example.appbar.model.profile.ProfileResponse;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface UserService {
@@ -18,4 +19,7 @@ public interface UserService {
 
     @POST("auth/register")
     Call<RegisterResponse> registerUser(@Body RegisterRequest registerRequest);
+
+    @GET("auth/me")
+    Call<ProfileResponse> profileUser(@Body ProfileRequest profileRequest);
 }

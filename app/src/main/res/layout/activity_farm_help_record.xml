@@ -30,7 +30,7 @@
                 app:srcCompat="@drawable/farmhelp_logoo" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/myProfile"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
                 android:layout_marginTop="3dp"
@@ -49,10 +49,10 @@
                 android:text="My Profile"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="@+id/myProfile"
                 app:layout_constraintHorizontal_bias="0.636"
-                app:layout_constraintStart_toStartOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                app:layout_constraintStart_toStartOf="@+id/myProfile"
+                app:layout_constraintTop_toBottomOf="@+id/myProfile" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
@@ -128,8 +128,7 @@
         android:id="@+id/gallery"
         android:layout_width="240dp"
         android:layout_height="70dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="175dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/custom_button"
         android:drawableTop="@drawable/ic_baseline_browse_gallery_24"
         android:paddingTop="5dp"
@@ -138,12 +137,10 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/record"
-        app:layout_constraintVertical_bias="0.471" />
+        app:layout_constraintTop_toBottomOf="@+id/record" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -159,6 +156,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
+    <ImageView
+        android:id="@+id/testImg"
+        android:layout_width="156dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gallery" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

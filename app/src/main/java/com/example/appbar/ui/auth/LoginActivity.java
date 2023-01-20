@@ -9,13 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.appbar.R;
 import com.example.appbar.api.ApiClient;
 import com.example.appbar.databinding.ActivityLoginBinding;
-import com.example.appbar.model.LoginRequest;
-import com.example.appbar.model.LoginResponse;
+import com.example.appbar.model.login.LoginRequest;
+import com.example.appbar.model.login.LoginResponse;
 import com.example.appbar.ui.home.HomeActivity;
-import com.google.android.material.textfield.TextInputEditText;
 
 import retrofit2.Call;
 import retrofit2.Callback;

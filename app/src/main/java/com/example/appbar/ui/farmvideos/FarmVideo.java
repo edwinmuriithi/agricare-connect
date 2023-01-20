@@ -24,6 +24,7 @@ import com.example.appbar.databinding.ActivityFarmhelpBinding;
 import com.example.appbar.ui.farmhelp.FarmHelp;
 import com.example.appbar.ui.home.HomeActivity;
 import com.example.appbar.ui.inbox.InboxActivity;
+import com.example.appbar.ui.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -76,6 +77,13 @@ public class FarmVideo extends AppCompatActivity {
                 }
                 return false;
 
+        });
+        binding.myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FarmVideo.this, ProfileActivity.class));
+                finish();
+            }
         });
     }
     private  class Callback extends WebViewClient {

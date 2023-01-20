@@ -1,4 +1,4 @@
-package com.example.appbar.model;
+package com.example.appbar.model.login;
 
 public class LoginRequest {
 

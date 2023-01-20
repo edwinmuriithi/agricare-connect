@@ -11,9 +11,8 @@ import android.widget.Toast;
 
 import com.example.appbar.api.ApiClient;
 import com.example.appbar.databinding.ActivitySignUp2Binding;
-import com.example.appbar.model.RegisterRequest;
-import com.example.appbar.model.RegisterResponse;
-import com.example.appbar.ui.home.HomeActivity;
+import com.example.appbar.model.signup.RegisterRequest;
+import com.example.appbar.model.signup.RegisterResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +43,17 @@ public class Sign_up_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 if(TextUtils.isEmpty(binding.fname.getText().toString().trim()) || TextUtils.isEmpty(binding.signUpPhone.getText().toString().trim()) ||
                         TextUtils.isEmpty(binding.signUpPhone.getText().toString().trim())) {
+//                //capture input from user.
+//                String name = binding.fname.getText().toString().trim();
+//                String phone = binding.signUpPhone.getText().toString().trim();
+//                String confirmPhone = binding.confirmPhone.getText().toString().trim();
+//                String password = binding.signupPassword.getText().toString().trim();
+//                String confirmPassword = binding.confirmPassword.getText().toString().trim();
+//
+//                boolean validPhone = isValidPhone(phone, confirmPhone);
+//                boolean validUserName = isValidUserName(name);
+//                boolean validPassword = isValidPassword(password, confirmPassword);
+//                if (!validPhone || !validUserName || !validPassword) {
                     String message = "Please fill in all fields";
                     Toast.makeText(Sign_up_Activity.this, message, Toast.LENGTH_SHORT).show();
                 }else{
@@ -60,17 +70,7 @@ public class Sign_up_Activity extends AppCompatActivity {
     private void createNewUser(RegisterRequest registerRequest) {
         userName = binding.fname.getText().toString().trim();
 
-        //capture input from user.
-        String name = binding.fname.getText().toString().trim();
-        String phone = binding.signUpPhone.getText().toString().trim();
-        String confirmPhone = binding.confirmPhone.getText().toString().trim();
-        String password = binding.signupPassword.getText().toString().trim();
-        String confirmPassword = binding.confirmPassword.getText().toString().trim();
 
-        boolean validPhone = isValidPhone(phone, confirmPhone);
-        boolean validUserName = isValidUserName(name);
-        boolean validPassword = isValidPassword(password, confirmPassword);
-        if (!validPhone || !validUserName || !validPassword) return;
 
         Call<RegisterResponse> registerResponseCall = ApiClient.getUserService().registerUser(registerRequest);
         registerResponseCall.enqueue(new Callback<RegisterResponse>() {
@@ -122,7 +122,7 @@ public class Sign_up_Activity extends AppCompatActivity {
         }else if(!phone.equals(confirmPhone)){
             binding.confirmPhone.setError("Phone Numbers do not match");
         }
-        return isGoodPhone;
+        return true;
     }
 }
 

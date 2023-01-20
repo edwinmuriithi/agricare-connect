@@ -20,6 +20,7 @@ import com.example.appbar.databinding.ActivityFarmHelpUploadBinding;
 import com.example.appbar.ui.farmvideos.FarmVideo;
 import com.example.appbar.ui.home.HomeActivity;
 import com.example.appbar.ui.inbox.InboxActivity;
+import com.example.appbar.ui.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FarmHelpUpload extends AppCompatActivity {
@@ -66,6 +67,14 @@ public class FarmHelpUpload extends AppCompatActivity {
                 }
                 return false;
 
+        });
+
+        binding.myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FarmHelpUpload.this, ProfileActivity.class));
+                finish();
+            }
         });
     }
 }

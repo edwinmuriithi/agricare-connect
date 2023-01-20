@@ -94,25 +94,5 @@
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Or"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/login"
-        app:layout_constraintStart_toStartOf="@+id/login"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-    <ImageView
-        android:id="@+id/google"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintEnd_toEndOf="@+id/login"
-        app:layout_constraintStart_toStartOf="@+id/login"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
-        app:srcCompat="@drawable/google" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
