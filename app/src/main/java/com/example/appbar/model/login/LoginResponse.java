@@ -2,6 +2,7 @@
 package com.example.appbar.model.login;
 
 
+import com.example.appbar.model.User;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -79,7 +80,7 @@ public class LoginResponse {
         this.expires = expires;
     }
 
-    public Boolean getNewUser() {
+    public boolean getNewUser() {
         return newUser;
     }
 

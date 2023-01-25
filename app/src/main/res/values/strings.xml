@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppBar</string>
+    <string name="app_name">FarmHub</string>
     <string name="title_home">Home</string>
     <string name="title_farm_help">FarmHelp</string>
     <string name="title_farm_videos">FarmVideos</string>

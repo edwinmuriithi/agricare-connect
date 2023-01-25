@@ -13,6 +13,7 @@ import com.example.appbar.api.ApiClient;
 import com.example.appbar.databinding.ActivityLoginBinding;
 import com.example.appbar.model.login.LoginRequest;
 import com.example.appbar.model.login.LoginResponse;
+import com.example.appbar.storage.SharedPreferencesManager;
 import com.example.appbar.ui.home.HomeActivity;
 
 import retrofit2.Call;
@@ -22,8 +23,6 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    Button login;
 
     private ActivityLoginBinding binding;
     private final static int RC_SIGN_IN = 123;
@@ -67,6 +66,17 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (SharedPreferencesManager.getInstance(this).isLoggedIn()){
+            Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
+
     public void login(){
 
         LoginRequest loginRequest = new LoginRequest();
@@ -78,12 +88,17 @@ public class LoginActivity extends AppCompatActivity {
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                LoginResponse loginResponse = response.body();
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+//                    SharedPreferencesManager.getInstance(LoginActivity.this).saveUser(loginResponse.getNewUser());
+
+
                     Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Incorrect Phone number or password", Toast.LENGTH_SHORT).show();
                 }
             }
 
