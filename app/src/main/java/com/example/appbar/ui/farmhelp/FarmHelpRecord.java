@@ -139,20 +139,9 @@ public class FarmHelpRecord extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == CAMERA_REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
-//                Bitmap photo;
-//                photo = (Bitmap) data.getExtras().get("data");
-//                Intent cameraIntent = new Intent(this,FarmHelpExplain.class);
-//                cameraIntent.putExtra("BitmapImage",photo);
-//                startActivity(cameraIntent);
                 File file = new File(currentImagePath);
-                binding.testImg.setImageURI(Uri.fromFile(file));
-
-//                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//                Uri contentUri = Uri.fromFile(file);
-//                mediaScanIntent.setData(contentUri);
-//                this.sendBroadcast(mediaScanIntent);
                 Intent cameraIntent = new Intent(FarmHelpRecord.this, FarmHelpExplain.class);
-                cameraIntent.putExtra("filepath",Uri.fromFile(file));
+                cameraIntent.putExtra("filepath",file.toString());
                 Log.d(TAG, "Absolute Url of image is " + Uri.fromFile(file));
                 startActivity(cameraIntent);
             }
@@ -175,51 +164,6 @@ public class FarmHelpRecord extends AppCompatActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(c.getType(contentUri));
     }
-
-    //    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//            if (resultCode == RESULT_OK) {
-//                if (requestCode == CAMERA_REQUEST_CODE) {
-//                    if (data != null) {
-//                        Bitmap photo = (Bitmap) data.getExtras().get("data");
-//                        /* Passing BITMAP to the Second Activity */
-//                        Intent intentCamera = new Intent(this, FarmHelpExplain.class);
-//                        intentCamera.putExtra("BitmapImage", photo);
-//                        Log.i(TAG, "onActivityResult: Sending photo");
-//                        startActivity(intentCamera);
-//                        }
-//                    }
-//                } else if (requestCode == REQUEST_GALLERY) {
-//                    if (data != null) {
-//                        Uri selectedImgUri = data.getData();
-//                        /* Passing ImageURI to the Second Activity */
-//                        Intent intentGallery = new Intent(this, FarmHelpExplain.class);
-//                        intentGallery.setData(selectedImgUri);
-//                        Log.i(TAG, "onActivityResult: Passing Image URI to second activity");
-//                        startActivity(intentGallery);
-//                    }
-//
-//                }
-//            }}
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == CAMERA_REQUEST_CODE) {
-//            if(resultCode ==Activity.RESULT_OK){
-//
-////                File file = new File(currentImagePath);
-////                activityFarmHelpExplainBinding.photoUpload.setImageURI(Uri.fromFile(file));
-//            if (file != null) {
-//                startActivity(new Intent(FarmHelpRecord.this, FarmHelpExplain.class));
-//                finish();
-//            } else {
-//                Toast.makeText(this, "Please take a photo", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }}
 
 
     @Override

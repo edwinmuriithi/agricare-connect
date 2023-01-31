@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.appbar.databinding.ActivityFarmhelpBinding;
 import com.example.appbar.databinding.ActivityProfileBinding;
-import com.example.appbar.model.User;
+import com.example.appbar.model.UserDetails;
 import com.example.appbar.model.profile.ProfileRequest;
 import com.example.appbar.storage.SharedPreferencesManager;
 import com.example.appbar.ui.auth.LoginActivity;
-import com.example.appbar.ui.home.HomeActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -26,21 +24,13 @@ public class ProfileActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         fetchUserDetails();
 
-        User user = SharedPreferencesManager.getInstance(this).getUser();
-        binding.fname.setText(user.getNames());
+        UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
+        binding.fname.setText(userDetails.getNames());
+        binding.phone.setText(userDetails.getPhone());
+        binding.email.setText(userDetails.getEmail());
 
 
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (!SharedPreferencesManager.getInstance(this).isLoggedIn()){
-            Intent intent=new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-    }
-
 
     private void fetchUserDetails() {
         ProfileRequest profileRequest = new ProfileRequest();

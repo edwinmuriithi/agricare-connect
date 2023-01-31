@@ -13,6 +13,8 @@ import com.example.appbar.api.ApiClient;
 import com.example.appbar.databinding.ActivitySignUp2Binding;
 import com.example.appbar.model.signup.RegisterRequest;
 import com.example.appbar.model.signup.RegisterResponse;
+import com.example.appbar.storage.SharedPreferencesManager;
+import com.example.appbar.ui.home.HomeActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,8 +43,10 @@ public class Sign_up_Activity extends AppCompatActivity {
         binding.signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(binding.fname.getText().toString().trim()) || TextUtils.isEmpty(binding.signUpPhone.getText().toString().trim()) ||
-                        TextUtils.isEmpty(binding.signUpPhone.getText().toString().trim())) {
+                if(TextUtils.isEmpty(binding.fname.getText().toString().trim() ) || TextUtils.isEmpty(binding.signUpPhone.getText().toString().trim()) ||
+                   TextUtils.isEmpty(binding.confirmPhone.getText().toString().trim()) || TextUtils.isEmpty(binding.signupPassword.getText().toString().trim()) ||
+                   TextUtils.isEmpty(binding.confirmPassword.getText().toString().trim())){
+                    Toast.makeText(Sign_up_Activity.this, "Fill in all fields correctly",Toast.LENGTH_LONG).show();
 //                //capture input from user.
 //                String name = binding.fname.getText().toString().trim();
 //                String phone = binding.signUpPhone.getText().toString().trim();
@@ -54,8 +58,6 @@ public class Sign_up_Activity extends AppCompatActivity {
 //                boolean validUserName = isValidUserName(name);
 //                boolean validPassword = isValidPassword(password, confirmPassword);
 //                if (!validPhone || !validUserName || !validPassword) {
-                    String message = "Please fill in all fields";
-                    Toast.makeText(Sign_up_Activity.this, message, Toast.LENGTH_SHORT).show();
                 }else{
                     RegisterRequest registerRequest = new RegisterRequest();
                     registerRequest.setNames(binding.fname.getText().toString().trim());
@@ -67,12 +69,22 @@ public class Sign_up_Activity extends AppCompatActivity {
         });
     }
 
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if (SharedPreferencesManager.getInstance(this).isLoggedIn()){
+//            Intent intent=new Intent(this, HomeActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+//        }
+//    }
+
     private void createNewUser(RegisterRequest registerRequest) {
         userName = binding.fname.getText().toString().trim();
 
 
-
-        Call<RegisterResponse> registerResponseCall = ApiClient.getUserService().registerUser(registerRequest);
+        String token = SharedPreferencesManager.getInstance(this).getToken();
+        Call<RegisterResponse> registerResponseCall = ApiClient.getUserService(token).registerUser(registerRequest);
         registerResponseCall.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {

@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,9 +24,13 @@ import com.example.appbar.ui.inbox.InboxActivity;
 import com.example.appbar.ui.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
+
 public class FarmHelpUpload extends AppCompatActivity {
 
     private ActivityFarmHelpUploadBinding binding;
+    String filePath;
+    String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +73,13 @@ public class FarmHelpUpload extends AppCompatActivity {
                 return false;
 
         });
+
+        Intent intent = getIntent();
+        filePath = intent.getStringExtra("filepath");
+        description = intent.getStringExtra("description");
+        File imageFile = new File(filePath);
+        binding.photoUpload.setImageURI(Uri.fromFile(imageFile));
+        binding.uploadEditText.setText(description);
 
         binding.myProfile.setOnClickListener(new View.OnClickListener() {
             @Override

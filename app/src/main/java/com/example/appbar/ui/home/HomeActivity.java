@@ -17,6 +17,7 @@ import android.view.View;
 import com.example.appbar.R;
 import com.example.appbar.databinding.ActivityFarmVideoBinding;
 import com.example.appbar.databinding.ActivityHomeBinding;
+import com.example.appbar.storage.SharedPreferencesManager;
 import com.example.appbar.ui.auth.LoginActivity;
 import com.example.appbar.ui.farmhelp.FarmHelp;
 import com.example.appbar.ui.farmhelp.FarmHelpSuccess;
@@ -24,7 +25,7 @@ import com.example.appbar.ui.farmvideos.FarmVideo;
 import com.example.appbar.ui.inbox.InboxActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeActivity extends AppCompatActivity {
+public class  HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
 
@@ -91,4 +92,5 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
 }

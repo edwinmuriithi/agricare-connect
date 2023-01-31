@@ -112,7 +112,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.496"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+      app:layout_constraintTop_toBottomOf="@+id/explainEditText" />
 
   <ImageView
       android:id="@+id/photoUpload"
@@ -126,7 +126,7 @@
       app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
   <EditText
-      android:id="@+id/editTextTextMultiLine"
+      android:id="@+id/explainEditText"
       android:layout_width="372dp"
       android:layout_height="253dp"
       android:layout_marginTop="11dp"

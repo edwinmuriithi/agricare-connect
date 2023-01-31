@@ -67,32 +67,33 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (SharedPreferencesManager.getInstance(this).isLoggedIn()){
-            Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if (SharedPreferencesManager.getInstance(this).isLoggedIn()){
+//            Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+//        }
+//    }
 
     public void login(){
 
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setPhone(binding.phoneLogin.getText().toString().trim());
         loginRequest.setPassword(binding.passwordLogin.getText().toString().trim());
+        String token = SharedPreferencesManager.getInstance(this).getToken();
 
-
-        Call<LoginResponse> loginResponseCall = ApiClient.getUserService().userLogin(loginRequest);
+        Call<LoginResponse> loginResponseCall = ApiClient.getUserService(token).userLogin(loginRequest);
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-//                    SharedPreferencesManager.getInstance(LoginActivity.this).saveUser(loginResponse.getNewUser());
-
+                    SharedPreferencesManager.getInstance(LoginActivity.this).saveUser(loginResponse.getUserDetails());
+                    SharedPreferencesManager.getInstance(LoginActivity.this).saveToken(loginResponse.getToken());
+                    
 
                     Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

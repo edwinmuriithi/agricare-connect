@@ -3,13 +3,15 @@ package com.example.appbar.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.appbar.model.User;
+import com.example.appbar.model.UserDetails;
+import com.example.appbar.model.login.LoginResponse;
 
 public class SharedPreferencesManager {
 
     private static final String SHARED_PREFERENCES = "my_shared_pref";
     private static SharedPreferencesManager mInstance;
     private Context mContext;
+
 
     public SharedPreferencesManager(Context mContext) {
         this.mContext = mContext;
@@ -22,33 +24,43 @@ public class SharedPreferencesManager {
         return mInstance;
     }
 
-    public void saveUser(User user){
+    public void saveUser(UserDetails userDetails){
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt("id", Integer.parseInt(user.getId()));
-        editor.putString("names",user.getNames());
-        editor.putString("phone", user.getPhone());
-        editor.putString("email",user.getEmail());
+        editor.putString("id", userDetails.getId());
+        editor.putString("names",userDetails.getNames());
+        editor.putString("phone", userDetails.getPhone());
+        editor.putString("email",userDetails.getEmail());
 
         editor.apply();
 
     }
-
-    public boolean isLoggedIn(){
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt("id",-1) != -1;
+    public void saveToken(String token){
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token",token);
+        editor.apply();
+    }
+    public String getToken(){
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES,Context.MODE_PRIVATE);
+        return sharedPreferences.getString("token",null);
     }
 
-    public User getUser(){
+//    public boolean isLoggedIn(){
+//        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
+//        return sharedPreferences.getString("id", "-1") != -1;
+//    }
+
+    public UserDetails getUser(){
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES,Context.MODE_PRIVATE);
-        User user = new User(
-                sharedPreferences.getString("id", String.valueOf(-1)),
+        UserDetails userDetails = new UserDetails(
+                sharedPreferences.getString("id", null),
                 sharedPreferences.getString("names",null),
                 sharedPreferences.getString("phone",null),
                 sharedPreferences.getString("email",null)
         );
-        return user;
+        return userDetails;
     }
     public void clear(){
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES,Context.MODE_PRIVATE);

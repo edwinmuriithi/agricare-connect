@@ -50,7 +50,7 @@ public class FarmHelpExplain extends AppCompatActivity {
 
     // Root Database Name for Firebase Database.
     String Database_Path = "All_Image_Uploads_Database";
-
+    String filePath;
 
     // Creating URI.
     Uri FilePathUri;
@@ -78,6 +78,11 @@ public class FarmHelpExplain extends AppCompatActivity {
 
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
+
+        Intent intent = getIntent();
+        filePath = intent.getStringExtra("filepath");
+        File imageFile = new File(filePath);
+        binding.photoUpload.setImageURI(Uri.fromFile(imageFile));
 
 
         binding.myProfile.setOnClickListener(new View.OnClickListener() {
@@ -109,45 +114,6 @@ public class FarmHelpExplain extends AppCompatActivity {
             return false;
 
         });
-//        Intent intent = getIntent();
-//        Bitmap cameraBitmap = (Bitmap)intent.getParcelableExtra("BitmapImage");
-//        if(cameraBitmap != null){
-//            binding.photoUpload.setImageBitmap(cameraBitmap);
-//        }
-
-        Bundle bundle = getIntent().getExtras();
-        if (bundle !=null){
-//            String imagePath = bundle.getString("filepath");
-
-            int imageId = bundle.getInt("filepath");
-            binding.photoUpload.setImageResource(imageId);
-            Log.d(TAG, "Absolute URL is  "+imageId);
-        }
-
-//        Intent intent = getIntent();
-//        String filePath = null;
-//        filePath = intent.getStringExtra("filepath").replace("file://","");;
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inSampleSize = 8; //down sizing image as it throws OutOfMemory Exception for larger images
-//        File imageFile = new File(filePath);
-//        if (imageFile.exists()){
-//            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath(), options);
-//            binding.photoUpload.setImageBitmap(bitmap);
-//        }
-
-
-
-//        Intent intent = getIntent();
-//        String filepath = intent.getStringExtra("filepath");
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inSampleSize = 8; // down sizing image as it throws OutOfMemory Exception for larger images
-//        filepath = filepath.replace("file://", ""); // remove to avoid BitmapFactory.decodeFile return null
-//        File imgFile = new File(filepath);
-//        if (imgFile.exists()) {
-//            ImageView imageView = binding.photoUpload;
-//            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), options);
-//            imageView.setImageBitmap(bitmap);
-
         // Assigning Id to ProgressDialog.
         progressDialog = new ProgressDialog(FarmHelpExplain.this);
 
@@ -155,61 +121,11 @@ public class FarmHelpExplain extends AppCompatActivity {
         binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent photoIntent = new Intent(FarmHelpExplain.this, FarmHelpUpload.class);
+                photoIntent.putExtra("filepath",filePath);
+                photoIntent.putExtra("description",binding.explainEditText.getText().toString());
+                startActivity(photoIntent);
             }
         });
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//
-//            FilePathUri = data.getData();
-//
-//            try {
-//
-//                // Getting selected image into Bitmap.
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
-//
-//                // Setting up bitmap selected image into ImageView.
-//                binding.photoUpload.setImageBitmap(bitmap);
-//
-//
-//            }
-//            catch (IOException e) {
-//
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//    // Creating Method to get the selected image file Extension from File Path URI.
-//    public String GetFileExtension(Uri uri) {
-//
-//        ContentResolver contentResolver = getContentResolver();
-//
-//        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-//
-//        // Returning the file Extension.
-//        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
-//
-//    }
-
-//    // Creating UploadImageFileToFirebaseStorage method to upload image on storage.
-//    public void UploadImageFileToFirebaseStorage() {
-//
-//        // Checking whether FilePathUri Is empty or not.
-//        if (FilePathUri != null) {
-//
-//            // Setting progressDialog Title.
-//            progressDialog.setTitle("Image is Uploading...");
-//
-//            // Showing progressDialog.
-//            progressDialog.show();
-//
-//        }
-//    }
 }

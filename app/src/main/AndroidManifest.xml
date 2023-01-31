@@ -94,7 +94,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.auth.Sign_up_Activity"
+            android:name=".ui.auth.LoginActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -118,7 +118,7 @@
             android:exported="false"
             android:theme="@style/SplashTheme" />
         <activity
-            android:name=".ui.auth.LoginActivity"
+            android:name=".ui.auth.Sign_up_Activity"
             android:exported="false" />
 
         <provider
