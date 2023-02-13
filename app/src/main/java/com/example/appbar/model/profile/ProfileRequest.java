@@ -21,7 +21,7 @@ public class ProfileRequest {
     private String names;
     @SerializedName("email")
     @Expose
-    private Object email;
+    private String email;
     @SerializedName("role")
     @Expose
     private String role;
@@ -46,7 +46,7 @@ public class ProfileRequest {
      * @param email
      * @param updatedAt
      */
-    public ProfileRequest(String id, String createdAt, String updatedAt, String names, Object email, String role, String phone) {
+    public ProfileRequest(String id, String createdAt, String updatedAt, String names, String email, String role, String phone) {
         super();
         this.id = id;
         this.createdAt = createdAt;
@@ -89,11 +89,11 @@ public class ProfileRequest {
         this.names = names;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Object email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

@@ -23,7 +23,7 @@ public interface UserService {
     Call<RegisterResponse> registerUser(@Body RegisterRequest registerRequest);
 
     @GET("auth/me")
-    Call<ProfileResponse> profileUser(@Body ProfileRequest profileRequest);
+    Call<ProfileResponse> profileUser();
 
     @POST("/posts")
     Call<PostResponse> postQuestion(@Body PostRequest postRequest); 

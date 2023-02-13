@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -83,9 +84,8 @@ public class LoginActivity extends AppCompatActivity {
         loginRequest.setPhone(binding.phoneLogin.getText().toString().trim());
         loginRequest.setPassword(binding.passwordLogin.getText().toString().trim());
 
-        String token = SharedPreferencesManager.getInstance(this).getToken();
 
-        Call<LoginResponse> loginResponseCall = ApiClient.getUserService(token).userLogin(loginRequest);
+        Call<LoginResponse> loginResponseCall = ApiClient.getUserService(this).userLogin(loginRequest);
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

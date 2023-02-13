@@ -109,9 +109,7 @@ public class Sign_up_Activity extends AppCompatActivity {
         private void createNewUser(RegisterRequest registerRequest) {
         userName = binding.fname.getText().toString().trim();
 
-
-        String token = SharedPreferencesManager.getInstance(this).getToken();
-        Call<RegisterResponse> registerResponseCall = ApiClient.getUserService(token).registerUser(registerRequest);
+        Call<RegisterResponse> registerResponseCall = ApiClient.getUserService(this).registerUser(registerRequest);
         registerResponseCall.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {

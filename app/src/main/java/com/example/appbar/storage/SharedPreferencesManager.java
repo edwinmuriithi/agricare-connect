@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.appbar.model.UserDetails;
 import com.example.appbar.model.login.LoginResponse;
+import com.google.gson.Gson;
 
 public class SharedPreferencesManager {
 
@@ -33,10 +34,13 @@ public class SharedPreferencesManager {
     public void saveUser(UserDetails userDetails){
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("id", userDetails.getId());
-        editor.putString("names",userDetails.getNames());
-        editor.putString("phone", userDetails.getPhone());
-        editor.putString("email",userDetails.getEmail());
+        Gson gson = new Gson();
+        String userDetails1 = gson.toJson(userDetails);
+//        editor.putString("id", userDetails.getId());
+//        editor.putString("names",userDetails.getNames());
+//        editor.putString("phone", userDetails.getPhone());
+//        editor.putString("email",userDetails.getEmail());
+        editor.putString("userDetail",userDetails1);
 
         editor.apply();
         Log.d(TAG, "ID is " + userDetails.getId());
@@ -62,12 +66,16 @@ public class SharedPreferencesManager {
 
     public UserDetails getUser(){
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES,Context.MODE_PRIVATE);
-        UserDetails userDetails = new UserDetails(
-                sharedPreferences.getString("id", null),
-                sharedPreferences.getString("names",null),
-                sharedPreferences.getString("phone",null),
-                sharedPreferences.getString("email",null)
-        );
+        String user = sharedPreferences.getString("userDetail","");
+        Gson gson = new Gson();
+        UserDetails userDetails = gson.fromJson(user, UserDetails.class);
+//        UserDetails userDetails = new UserDetails(
+//                sharedPreferences.getString("id", null),
+//                sharedPreferences.getString("names",""),
+//                sharedPreferences.getString("phone",null),
+//                sharedPreferences.getString("email",null)
+//        );
+
         Log.d(TAG, "User name is retrieved as " + userDetails);
         return userDetails;
 
