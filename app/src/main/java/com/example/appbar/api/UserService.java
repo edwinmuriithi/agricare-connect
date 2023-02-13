@@ -26,5 +26,5 @@ public interface UserService {
     Call<ProfileResponse> profileUser(@Body ProfileRequest profileRequest);
 
     @POST("/posts")
-    Call<PostResponse> postQuestion(@Body PostRequest postRequest);
+    Call<PostResponse> postQuestion(@Body PostRequest postRequest); 
 }

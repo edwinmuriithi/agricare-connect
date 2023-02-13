@@ -57,6 +57,7 @@ public class FarmHelpRecord extends AppCompatActivity {
     public static final int CAMERA_PERMISSION_CODE = 101;
     String currentImagePath = null;
     public static final int CAMERA_REQUEST_CODE =102;
+    public static final int GALLERY_PERMISSION_CODE = 104;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +113,18 @@ public class FarmHelpRecord extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Creating intent.
-             Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-             startActivityForResult(gallery,GALLERY_REQUEST_CODE);
+//             Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//             startActivityForResult(gallery,GALLERY_REQUEST_CODE);
+                if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                    Intent openGallery = new Intent();
+                    openGallery.setType("image/*");
+                    openGallery.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(openGallery,GALLERY_REQUEST_CODE);
+                }else{
+                    ActivityCompat.requestPermissions(FarmHelpRecord.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},GALLERY_PERMISSION_CODE);
+                }
+
             }
         });
 
@@ -153,10 +164,15 @@ public class FarmHelpRecord extends AppCompatActivity {
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageFileName = "jpg_" + timeStamp + "_"+getFileExt(contentUri);
                 Log.d(TAG, "onActivityResult: Gallery Image Uri " + imageFileName);
-                binding.testImg.setImageURI(contentUri);
+                Intent galleryIntent = new Intent(FarmHelpRecord.this, FarmHelpExplain.class);
+                galleryIntent.putExtra("filepath",imageFileName);
+                startActivity(galleryIntent);
+//                binding.testImg.setImageURI(contentUri);
 
             }
         }
+
+
     }
 
     private String getFileExt(Uri contentUri) {

@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setPhone(binding.phoneLogin.getText().toString().trim());
         loginRequest.setPassword(binding.passwordLogin.getText().toString().trim());
+
         String token = SharedPreferencesManager.getInstance(this).getToken();
 
         Call<LoginResponse> loginResponseCall = ApiClient.getUserService(token).userLogin(loginRequest);

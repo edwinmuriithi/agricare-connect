@@ -2,7 +2,9 @@ package com.example.appbar.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.appbar.api.ApiClient;
 import com.example.appbar.databinding.ActivitySignUp2Binding;
+import com.example.appbar.model.UserDetails;
 import com.example.appbar.model.signup.RegisterRequest;
 import com.example.appbar.model.signup.RegisterResponse;
 import com.example.appbar.storage.SharedPreferencesManager;
@@ -23,6 +26,8 @@ import retrofit2.Response;
 public class Sign_up_Activity extends AppCompatActivity {
 
     private String userName;
+    SharedPreferences sharedPreferences;
+    public static final String myPreferences = "myPref";
     private ActivitySignUp2Binding binding;
 
     @Override
@@ -31,6 +36,15 @@ public class Sign_up_Activity extends AppCompatActivity {
         binding = ActivitySignUp2Binding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE);
+        String UserName = binding.fname.getText().toString();
+        String phone = binding.signUpPhone.getText().toString();
+        if (sharedPreferences.contains(UserName)){
+            binding.fname.setText(sharedPreferences.getString(UserName,""));
+        }
+        if (sharedPreferences.contains(phone)){
+            binding.signUpPhone.setText(sharedPreferences.getString(phone,""));
+        }
 
         binding.loginSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +78,7 @@ public class Sign_up_Activity extends AppCompatActivity {
                     registerRequest.setPhone(binding.signUpPhone.getText().toString().trim());
                     registerRequest.setPassword(binding.signupPassword.getText().toString().trim());
                     createNewUser(registerRequest);
+
                 }
             }
         });
@@ -79,7 +94,19 @@ public class Sign_up_Activity extends AppCompatActivity {
 //        }
 //    }
 
-    private void createNewUser(RegisterRequest registerRequest) {
+//    public void saveUser(UserDetails userDetails){
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//        editor.putString("id", userDetails.getId());
+//        editor.putString("names",userDetails.getNames());
+//        editor.putString("phone", userDetails.getPhone());
+//        editor.putString("email",userDetails.getEmail());
+//
+//        editor.apply();
+//    }
+
+
+        private void createNewUser(RegisterRequest registerRequest) {
         userName = binding.fname.getText().toString().trim();
 
 
