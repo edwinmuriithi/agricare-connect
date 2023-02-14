@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
+import androidx.loader.content.CursorLoader;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -13,8 +14,11 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,9 +36,14 @@ import com.example.appbar.ui.home.HomeActivity;
 import com.example.appbar.ui.inbox.InboxActivity;
 import com.example.appbar.ui.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -94,33 +103,15 @@ public class FarmHelpUpload extends AppCompatActivity {
         binding.photoUpload.setImageURI(Uri.fromFile(imageFile));
         binding.uploadEditText.setText(description);
 
-        PostRequest postRequest = new PostRequest();
+
 
         binding.uploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PostRequest postRequest = new PostRequest();
                 postRequest.setDescription(description);
                 postRequest.setImage(imageFile);
-                Call<PostResponse> postResponseCall = ApiClient.getUserService(FarmHelpUpload.this).postQuestion(postRequest);
-                postResponseCall.enqueue(new Callback<PostResponse>() {
-                    @Override
-                    public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
-                        PostResponse postResponse = response.body();
-                        if(response.isSuccessful()){
-                            Toast.makeText(FarmHelpUpload.this, "Question posted Successfully", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "Image uploaded successfully " + postResponse.getImageUrl());
-
-                        }else{
-                            Toast.makeText(FarmHelpUpload.this, "Error sending image", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "Failed to upload image " + postResponse.getStatus());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<PostResponse> call, Throwable t) {
-                        Toast.makeText(FarmHelpUpload.this,"Throwable " +t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-                    }
-                });
+                uploadFile(postRequest);
             }
 
         });
@@ -130,6 +121,33 @@ public class FarmHelpUpload extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(FarmHelpUpload.this, ProfileActivity.class));
                 finish();
+            }
+        });
+    }
+
+    private void uploadFile(final PostRequest postRequest) {
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), postRequest.getImage());
+        RequestBody descBody = RequestBody.create(MediaType.parse("text/plain"), postRequest.getDescription());
+
+        Call<PostResponse> postResponseCall = ApiClient.getUserService(FarmHelpUpload.this).postQuestion(descBody,requestFile);
+        postResponseCall.enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                PostResponse postResponse = response.body();
+                if(response.isSuccessful()){
+                    Toast.makeText(FarmHelpUpload.this, "Question submitted successfully", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Question posted Successfully " + postResponse.getImageUrl());
+
+                }else{
+                    Toast.makeText(FarmHelpUpload.this, "Failed to submit question... Please try again", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Error sending image " + postResponse.getStatus());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostResponse> call, Throwable t) {
+                Toast.makeText(FarmHelpUpload.this,"Throwable " +t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }

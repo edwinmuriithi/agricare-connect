@@ -51,8 +51,6 @@ public class FarmHelpRecord extends AppCompatActivity {
     private static final int GALLERY_REQUEST_CODE = 103;
     private static final String TAG = "MyActivity";
     private ActivityFarmHelpRecordBinding binding;
-    private ActivityFarmHelpExplainBinding activityFarmHelpExplainBinding;
-    // Image request code for onActivityResult() .
     int Image_Request_Code = 7;
     public static final int CAMERA_PERMISSION_CODE = 101;
     String currentImagePath = null;
@@ -112,9 +110,6 @@ public class FarmHelpRecord extends AppCompatActivity {
         binding.gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Creating intent.
-//             Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//             startActivityForResult(gallery,GALLERY_REQUEST_CODE);
                 if (ContextCompat.checkSelfPermission(getApplicationContext(),
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                     Intent openGallery = new Intent();
@@ -167,7 +162,6 @@ public class FarmHelpRecord extends AppCompatActivity {
                 Intent galleryIntent = new Intent(FarmHelpRecord.this, FarmHelpExplain.class);
                 galleryIntent.putExtra("filepath",imageFileName);
                 startActivity(galleryIntent);
-//                binding.testImg.setImageURI(contentUri);
 
             }
         }
@@ -218,7 +212,6 @@ public class FarmHelpRecord extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageName = "jpg_"+timeStamp+"_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         File imageFile = File.createTempFile(imageName,".jpg",storageDir);
         currentImagePath = imageFile.getAbsolutePath();
@@ -226,51 +219,3 @@ public class FarmHelpRecord extends AppCompatActivity {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// binding.record.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                askCameraPermissions();
-//            }
-//        });
-//
-//    }
-//
-//    private void askCameraPermissions() {
-//        }
-//        else {
-//            openCamera();
-//        }
-//    }
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == CAMERA_PIC_REQUEST) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                openCamera();
-//            } else {
-//                Toast.makeText(this, "Camera Permission is Required to use camera", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
-//
-//    private void openCamera() {
-//        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//        startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
-//    }
-//

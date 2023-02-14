@@ -45,20 +45,10 @@ import java.io.IOException;
 public class FarmHelpExplain extends AppCompatActivity {
 
     private ActivityFarmHelpExplainBinding binding;
-    // Folder path for Firebase Storage.
-    String Storage_Path = "All_Image_Uploads/";
-
-    // Root Database Name for Firebase Database.
-    String Database_Path = "All_Image_Uploads_Database";
     String filePath;
-
     // Creating URI.
     Uri FilePathUri;
-
-
-    // Image request code for onActivityResult() .
     int Image_Request_Code = 7;
-
     ProgressDialog progressDialog ;
 
 
