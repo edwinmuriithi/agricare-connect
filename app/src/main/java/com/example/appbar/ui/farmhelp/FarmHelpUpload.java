@@ -111,7 +111,7 @@ public class FarmHelpUpload extends AppCompatActivity {
                 PostRequest postRequest = new PostRequest();
                 postRequest.setDescription(description);
                 postRequest.setImage(imageFile);
-                uploadFile(postRequest);
+                uploadFile();
             }
 
         });
@@ -125,12 +125,25 @@ public class FarmHelpUpload extends AppCompatActivity {
         });
     }
 
-    private void uploadFile(final PostRequest postRequest) {
+    private void uploadFile() {
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), postRequest.getImage());
-        RequestBody descBody = RequestBody.create(MediaType.parse("text/plain"), postRequest.getDescription());
+////        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), postRequest.getImage());
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), postRequest.getImage());
+////        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file",postRequest.getImage().getName(),requestFile);
+//        RequestBody descBody = RequestBody.create(MediaType.parse("text/plain"), postRequest.getDescription());
 
-        Call<PostResponse> postResponseCall = ApiClient.getUserService(FarmHelpUpload.this).postQuestion(descBody,requestFile);
+
+//        File imageFile = new File(filePath);
+////        Uri imageUri = Uri.fromFile(imageFile);
+//        RequestBody filePart = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+////        RequestBody filePart = RequestBody.create(MediaType.parse(getContentResolver().getType(imageUri)),filePath);
+//        MultipartBody.Part file = MultipartBody.Part.createFormData("image",imageFile.getName(),filePart);
+        File imageFile = new File(filePath);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"),imageFile);
+        MultipartBody.Part imageBody = MultipartBody.Part.createFormData("image", imageFile.getName(),requestFile);
+        RequestBody descriptionPart = RequestBody.create(MultipartBody.FORM, description);
+
+        Call<PostResponse> postResponseCall = ApiClient.getUserService(FarmHelpUpload.this).postQuestion(descriptionPart,imageBody);
         postResponseCall.enqueue(new Callback<PostResponse>() {
             @Override
             public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
@@ -138,6 +151,8 @@ public class FarmHelpUpload extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Toast.makeText(FarmHelpUpload.this, "Question submitted successfully", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "Question posted Successfully " + postResponse.getImageUrl());
+                    Intent activityIntent = new Intent(FarmHelpUpload.this, FarmHelpSuccess.class);
+                    startActivity(activityIntent);
 
                 }else{
                     Toast.makeText(FarmHelpUpload.this, "Failed to submit question... Please try again", Toast.LENGTH_SHORT).show();
