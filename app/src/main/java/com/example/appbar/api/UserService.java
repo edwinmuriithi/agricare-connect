@@ -35,7 +35,10 @@ public interface UserService {
     @Multipart
     @POST("/posts")
     Call<PostResponse> postQuestion(@Part("description") RequestBody description,
-                                    @Part MultipartBody.Part image);
+                                    @Part("image\"; filename=\"image.png\" ") RequestBody image);
+
+
+
 }
 
 
