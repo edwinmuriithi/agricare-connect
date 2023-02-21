@@ -19,6 +19,7 @@
         android:icon="@drawable/logoicon"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@drawable/logoicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
