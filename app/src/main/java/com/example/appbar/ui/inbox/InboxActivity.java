@@ -10,6 +10,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.appbar.R;
+import com.example.appbar.adapters.MessageAdapter;
 import com.example.appbar.databinding.ActivityFarmVideoBinding;
 import com.example.appbar.databinding.ActivityInboxBinding;
 import com.example.appbar.model.UserDetails;
@@ -54,6 +56,7 @@ public class InboxActivity extends AppCompatActivity implements TextWatcher {
     private String name;
     private String SERVER_PATH = "";
     private int GALLERY_REQUEST_CODE = 5;
+    private MessageAdapter messageAdapter;
 
 
     @Override
@@ -149,6 +152,11 @@ public class InboxActivity extends AppCompatActivity implements TextWatcher {
                 try {
                     JSONObject jsonObject = new JSONObject(text);
                     jsonObject.put("isSent",false);
+
+                    messageAdapter.addItem(jsonObject);
+
+                    binding.chatrecycle.smoothScrollToPosition(messageAdapter.getItemCount() -1);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -167,6 +175,10 @@ public class InboxActivity extends AppCompatActivity implements TextWatcher {
     }
 
     private void initializeView() {
+        messageAdapter = new MessageAdapter(getLayoutInflater());
+        binding.chatrecycle.setAdapter(messageAdapter);
+        binding.chatrecycle.setLayoutManager(new LinearLayoutManager(this));
+
         binding.messageEdit.addTextChangedListener(this);
 
         binding.sendBtn.setOnClickListener(v -> {
@@ -177,6 +189,9 @@ public class InboxActivity extends AppCompatActivity implements TextWatcher {
                 webSocket.send(jsonObject.toString());
 
                 jsonObject.put("isSent", true);
+                messageAdapter.addItem(jsonObject);
+
+                binding.chatrecycle.smoothScrollToPosition(messageAdapter.getItemCount() -1);
 
                 resetMessageEdit();
 
@@ -225,6 +240,11 @@ public class InboxActivity extends AppCompatActivity implements TextWatcher {
             webSocket.send(jsonObject.toString());
 
             jsonObject.put("isSent", true);
+
+            messageAdapter.addItem(jsonObject);
+
+            binding.chatrecycle.smoothScrollToPosition(messageAdapter.getItemCount() -1);
+
         }catch (JSONException e){
             e.printStackTrace();
         }

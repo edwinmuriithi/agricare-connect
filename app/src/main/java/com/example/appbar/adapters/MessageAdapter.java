@@ -1,5 +1,7 @@
 package com.example.appbar.adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +17,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter {
 
-    private int TYPE_MESSAGE_SENT = 0;
-    private int TYPE_MESSAGE_RECEIVED = 1;
-    private int TYPE_IMAGE_SENT = 2;
-    private int TYPE_IMAGE_RECEIVED = 3;
+    private static final int TYPE_MESSAGE_SENT = 0;
+    private static final int TYPE_MESSAGE_RECEIVED = 1;
+    private static final int TYPE_IMAGE_SENT = 2;
+    private static final int TYPE_IMAGE_RECEIVED = 3;
 
     private LayoutInflater inflater;
     private List<JSONObject> messages = new ArrayList<>();
@@ -100,16 +103,72 @@ public class MessageAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view;
+
+        switch (viewType){
+            case TYPE_MESSAGE_SENT:
+                view = inflater.inflate(R.layout.item_sent_message,parent,false);
+                return new SentMessageHolder(view);
+            case TYPE_MESSAGE_RECEIVED:
+                view = inflater.inflate(R.layout.item_received_message, parent,false);
+                return new ReceivedMessageHolder(view);
+            case TYPE_IMAGE_SENT:
+                view = inflater.inflate(R.layout.item_sent_image,parent,false);
+                return new SentImageHolder(view);
+            case TYPE_IMAGE_RECEIVED:
+                view = inflater.inflate(R.layout.item_received_image,parent,false);
+                return new ReceivedImageHolder(view);
+        }
+
         return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        JSONObject message = messages.get(position);
+        try {
+            if (message.getBoolean("isSent")){
+                if (message.has("text")){
+                    SentMessageHolder messageHolder = (SentMessageHolder) holder;
+                    messageHolder.messageTxt.setText(message.getString("text"));
+                }else{
+                    SentImageHolder imageHolder = (SentImageHolder) holder;
+                    Bitmap bitmap = getBitmapFromString("image");
+
+                    imageHolder.imageView.setImageBitmap(bitmap);
+                }
+            }else{
+                if(message.has("text")){
+                    ReceivedMessageHolder messageHolder = (ReceivedMessageHolder) holder;
+                    messageHolder.messageText.setText(message.getString("text"));
+                } else{
+                    ReceivedImageHolder imageHolder = (ReceivedImageHolder) holder;
+
+                    Bitmap bitmap = getBitmapFromString(message.getString("image"));
+                    imageHolder.imageView.setImageBitmap(bitmap);
+                }
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Bitmap getBitmapFromString(String image) {
+//        byte[] bytes = Base64.getDecoder().decode(image,Base64.DEFAULT);
+//        return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        return null;
     }
 
     @Override
     public int getItemCount() {
         return messages.size();
+    }
+
+    public void addItem (JSONObject jsonObject){
+        messages.add(jsonObject);
+        notifyDataSetChanged();
     }
 }
