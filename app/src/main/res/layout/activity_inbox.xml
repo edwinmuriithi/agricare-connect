@@ -29,14 +29,14 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/attachbtn"
+            android:id="@+id/pickImgBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@null"
             android:src="@drawable/ic_baseline_attach_file_24" />
 
         <EditText
-            android:id="@+id/messaget"
+            android:id="@+id/messageEdit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,7 +46,7 @@
             android:padding="15dp" />
 
         <ImageButton
-            android:id="@+id/sendmsg"
+            android:id="@+id/sendBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@null"
