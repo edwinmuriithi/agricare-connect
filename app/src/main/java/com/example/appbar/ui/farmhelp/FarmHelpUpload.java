@@ -44,6 +44,7 @@ import java.io.File;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,9 +110,6 @@ public class FarmHelpUpload extends AppCompatActivity {
         binding.uploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PostRequest postRequest = new PostRequest();
-                postRequest.setDescription(description);
-                postRequest.setImage(imageFile);
                 uploadFile();
             }
 
@@ -127,30 +125,22 @@ public class FarmHelpUpload extends AppCompatActivity {
     }
 
     private void uploadFile() {
-
-////        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), postRequest.getImage());
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), postRequest.getImage());
-////        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file",postRequest.getImage().getName(),requestFile);
-//        RequestBody descBody = RequestBody.create(MediaType.parse("text/plain"), postRequest.getDescription());
-
-
-//        File imageFile = new File(filePath);
-////        Uri imageUri = Uri.fromFile(imageFile);
-//        RequestBody filePart = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
-////        RequestBody filePart = RequestBody.create(MediaType.parse(getContentResolver().getType(imageUri)),filePath);
-//        MultipartBody.Part file = MultipartBody.Part.createFormData("image",imageFile.getName(),filePart);
-
-
+        Intent intent = getIntent();
+        filePath = intent.getStringExtra("filepath");
         File imageFile = new File(filePath);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"),imageFile);
-        MultipartBody.Part imageBody = MultipartBody.Part.createFormData("image", imageFile.getName(),requestFile);
+        RequestBody fileRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("image", imageFile.getName(), fileRequestBody);
 
-//        RequestBody fileUpload = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"),imageFile);
 
-        RequestBody descriptionPart = RequestBody.create(MultipartBody.FORM, description);
+        RequestBody descriptionPart = RequestBody.create(MediaType.parse("multipart/form-data"), description);
 
-        Call<PostResponse> postResponseCall = ApiClient.getUserService(FarmHelpUpload.this).postQuestion(descriptionPart,imageBody);
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addPart(filePart)
+                .addPart(descriptionPart)
+                .build();
+
+        Call<PostResponse> postResponseCall = ApiClient.getUserService(FarmHelpUpload.this).postQuestion(descriptionPart,filePart);
         postResponseCall.enqueue(new Callback<PostResponse>() {
             @Override
             public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
@@ -174,3 +164,30 @@ public class FarmHelpUpload extends AppCompatActivity {
         });
     }
 }
+
+
+
+//                PostRequest postRequest = new PostRequest();
+//                postRequest.setDescription(description);
+//                postRequest.setImage(imageFile);
+
+
+////        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), postRequest.getImage());
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), postRequest.getImage());
+////        MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file",postRequest.getImage().getName(),requestFile);
+//        RequestBody descBody = RequestBody.create(MediaType.parse("text/plain"), postRequest.getDescription());
+
+
+//        File imageFile = new File(filePath);
+////        Uri imageUri = Uri.fromFile(imageFile);
+//        RequestBody filePart = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+////        RequestBody filePart = RequestBody.create(MediaType.parse(getContentResolver().getType(imageUri)),filePath);
+//        MultipartBody.Part file = MultipartBody.Part.createFormData("image",imageFile.getName(),filePart);
+
+
+//        File imageFile = new File(filePath);
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"),imageFile);
+//        MultipartBody.Part imageBody = MultipartBody.Part.createFormData("image", imageFile.getName(),requestFile);
+//        RequestBody fileUpload = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"),imageFile);
+
