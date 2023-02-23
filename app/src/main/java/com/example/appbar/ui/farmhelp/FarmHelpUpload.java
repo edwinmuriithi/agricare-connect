@@ -100,10 +100,19 @@ public class FarmHelpUpload extends AppCompatActivity {
 
         Intent intent = getIntent();
         filePath = intent.getStringExtra("filepath");
-        description = intent.getStringExtra("description");
-        File imageFile = new File(filePath);
-        binding.photoUpload.setImageURI(Uri.fromFile(imageFile));
-        binding.uploadEditText.setText(description);
+        if (filePath !=null) {
+            description = intent.getStringExtra("description");
+            File imageFile = new File(filePath);
+            binding.photoUpload.setImageURI(Uri.fromFile(imageFile));
+            binding.uploadEditText.setText(description);
+        }
+
+        Uri contentUri = getIntent().getData();
+        if (contentUri !=null) {
+            description = getIntent().getStringExtra("description");
+            binding.photoUpload.setImageURI(contentUri);
+            binding.uploadEditText.setText(description);
+        }
 
 
 

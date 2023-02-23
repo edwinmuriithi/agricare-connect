@@ -40,16 +40,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 
 public class FarmHelpExplain extends AppCompatActivity {
 
     private ActivityFarmHelpExplainBinding binding;
     String filePath;
+    String galleryImage;
     // Creating URI.
-    Uri FilePathUri;
+    Uri contentUri;
     int Image_Request_Code = 7;
-    ProgressDialog progressDialog ;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -69,10 +71,18 @@ public class FarmHelpExplain extends AppCompatActivity {
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
 
+
         Intent intent = getIntent();
         filePath = intent.getStringExtra("filepath");
+        if (filePath !=null){
         File imageFile = new File(filePath);
         binding.photoUpload.setImageURI(Uri.fromFile(imageFile));
+        }
+
+        Uri contentUri = getIntent().getData();
+        if (contentUri !=null) {
+            binding.photoUpload.setImageURI(contentUri);
+        }
 
 
         binding.myProfile.setOnClickListener(new View.OnClickListener() {
@@ -111,10 +121,19 @@ public class FarmHelpExplain extends AppCompatActivity {
         binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (filePath != null){
                 Intent photoIntent = new Intent(FarmHelpExplain.this, FarmHelpUpload.class);
                 photoIntent.putExtra("filepath",filePath);
                 photoIntent.putExtra("description",binding.explainEditText.getText().toString());
                 startActivity(photoIntent);
+                }
+                if (contentUri !=null){
+                    Intent galleryIntent = new Intent(FarmHelpExplain.this,FarmHelpUpload.class);
+                    galleryIntent.setData(contentUri);
+                    galleryIntent.putExtra("description",binding.explainEditText.getText().toString());
+                    startActivity(galleryIntent);
+                }
             }
         });
     }

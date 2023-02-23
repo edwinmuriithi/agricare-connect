@@ -156,17 +156,11 @@ public class FarmHelpRecord extends AppCompatActivity {
         if (requestCode == GALLERY_REQUEST_CODE){
             if (resultCode == Activity.RESULT_OK){
                 Uri contentUri = data.getData();
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                String imageFileName = "jpg_" + timeStamp + "_"+getFileExt(contentUri);
-                Log.d(TAG, "onActivityResult: Gallery Image Uri " + imageFileName);
-                Intent galleryIntent = new Intent(FarmHelpRecord.this, FarmHelpExplain.class);
-                galleryIntent.putExtra("filepath",imageFileName);
+                Intent galleryIntent = new Intent(this,FarmHelpExplain.class);
+                galleryIntent.setData(contentUri);
                 startActivity(galleryIntent);
-
             }
         }
-
-
     }
 
     private String getFileExt(Uri contentUri) {

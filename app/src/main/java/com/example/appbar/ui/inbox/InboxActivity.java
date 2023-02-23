@@ -54,7 +54,7 @@ public class InboxActivity extends AppCompatActivity implements TextWatcher {
     private ActivityInboxBinding binding;
     private WebSocket webSocket;
     private String name;
-    private String SERVER_PATH = "";
+    private String SERVER_PATH = "https://farmhub-api.dalasystems.com/messaging";
     private int GALLERY_REQUEST_CODE = 5;
     private MessageAdapter messageAdapter;
 
