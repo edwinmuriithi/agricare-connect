@@ -54,11 +54,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        binding.forgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,ForgotPassword.class);
+                startActivity(intent);
+            }
+        });
+
         binding.login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(binding.phoneLogin.getText().toString().trim() ) || TextUtils.isEmpty(binding.passwordLogin.getText().toString().trim())){
-                    Toast.makeText(LoginActivity.this, "Username or Password Incorrect",Toast.LENGTH_LONG).show();
+                if(binding.phoneLogin.getText().toString().isEmpty() || (binding.passwordLogin.getText().toString().isEmpty())){
+                    Toast.makeText(LoginActivity.this, "Enter Number and Password",Toast.LENGTH_LONG).show();
                 }else{
                     //proceed
                     login();

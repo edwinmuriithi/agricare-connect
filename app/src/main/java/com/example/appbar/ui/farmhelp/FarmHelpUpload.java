@@ -54,7 +54,6 @@ public class FarmHelpUpload extends AppCompatActivity {
     private ActivityFarmHelpUploadBinding binding;
     String filePath;
     String description;
-    File imageFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

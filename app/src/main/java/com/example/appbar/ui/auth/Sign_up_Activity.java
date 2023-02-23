@@ -57,54 +57,27 @@ public class Sign_up_Activity extends AppCompatActivity {
         binding.signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(binding.fname.getText().toString().trim() ) || TextUtils.isEmpty(binding.signUpPhone.getText().toString().trim()) ||
-                   TextUtils.isEmpty(binding.confirmPhone.getText().toString().trim()) || TextUtils.isEmpty(binding.signupPassword.getText().toString().trim()) ||
-                   TextUtils.isEmpty(binding.confirmPassword.getText().toString().trim())){
+                if(binding.fname.getText().toString().isEmpty() || binding.signUpPhone.getText().toString().isEmpty() ||
+                   binding.confirmPhone.getText().toString().isEmpty() || binding.signupPassword.getText().toString().isEmpty() ||
+                   binding.confirmPassword.getText().toString().isEmpty()){
                     Toast.makeText(Sign_up_Activity.this, "Fill in all fields correctly",Toast.LENGTH_LONG).show();
-//                //capture input from user.
-//                String name = binding.fname.getText().toString().trim();
-//                String phone = binding.signUpPhone.getText().toString().trim();
-//                String confirmPhone = binding.confirmPhone.getText().toString().trim();
-//                String password = binding.signupPassword.getText().toString().trim();
-//                String confirmPassword = binding.confirmPassword.getText().toString().trim();
-//
-//                boolean validPhone = isValidPhone(phone, confirmPhone);
-//                boolean validUserName = isValidUserName(name);
-//                boolean validPassword = isValidPassword(password, confirmPassword);
-//                if (!validPhone || !validUserName || !validPassword) {
+
                 }else{
+                    if(binding.signUpPhone.getText().toString() == binding.confirmPhone.getText().toString() ||
+                            binding.signupPassword.getText().toString()== binding.confirmPassword.getText().toString()){
                     RegisterRequest registerRequest = new RegisterRequest();
                     registerRequest.setNames(binding.fname.getText().toString().trim());
                     registerRequest.setPhone(binding.signUpPhone.getText().toString().trim());
                     registerRequest.setPassword(binding.signupPassword.getText().toString().trim());
                     createNewUser(registerRequest);
+                    }else {
+                        Toast.makeText(Sign_up_Activity.this, "Make sure phone number and password match", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }
         });
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        if (SharedPreferencesManager.getInstance(this).isLoggedIn()){
-//            Intent intent=new Intent(this, HomeActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(intent);
-//        }
-//    }
-
-//    public void saveUser(UserDetails userDetails){
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//        editor.putString("id", userDetails.getId());
-//        editor.putString("names",userDetails.getNames());
-//        editor.putString("phone", userDetails.getPhone());
-//        editor.putString("email",userDetails.getEmail());
-//
-//        editor.apply();
-//    }
-
 
         private void createNewUser(RegisterRequest registerRequest) {
         userName = binding.fname.getText().toString().trim();

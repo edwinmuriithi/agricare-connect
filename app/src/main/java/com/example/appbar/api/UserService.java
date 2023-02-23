@@ -1,5 +1,7 @@
 package com.example.appbar.api;
 
+import com.example.appbar.model.forgetpass.ForgetPassRequest;
+import com.example.appbar.model.forgetpass.ForgetPassResponse;
 import com.example.appbar.model.login.LoginRequest;
 import com.example.appbar.model.login.LoginResponse;
 import com.example.appbar.model.message.MessageRequest;
@@ -35,6 +37,9 @@ public interface UserService {
 
     @GET("auth/me")
     Call<ProfileResponse> profileUser();
+
+    @POST("auth/reset-password")
+    Call<ForgetPassResponse> resetPass(@Body ForgetPassRequest forgetPassRequest);
 
     @Multipart
     @POST("/posts")
