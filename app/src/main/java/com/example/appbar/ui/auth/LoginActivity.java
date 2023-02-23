@@ -26,11 +26,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private ActivityLoginBinding binding;
-    private final static int RC_SIGN_IN = 123;
 
     ProgressDialog progressDialog;
 
-    public static final String TAG = LoginActivity.class.getSimpleName();
 
 
     @Override
@@ -40,10 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        String phone = binding.phoneLogin.getText().toString().trim();
-        String password = binding.passwordLogin.getText().toString().trim();
-
 
         binding.signuplogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(binding.phoneLogin.getText().toString().isEmpty() || (binding.passwordLogin.getText().toString().isEmpty())){
-                    Toast.makeText(LoginActivity.this, "Enter Number and Password",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Please Enter Number and Password",Toast.LENGTH_LONG).show();
                 }else{
                     //proceed
                     login();
@@ -99,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
                 if(response.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
                     SharedPreferencesManager.getInstance(LoginActivity.this).saveUser(loginResponse.getUserDetails());
                     SharedPreferencesManager.getInstance(LoginActivity.this).saveToken(loginResponse.getToken());
                     
@@ -108,13 +102,13 @@ public class LoginActivity extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(LoginActivity.this, "Incorrect Phone number or password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Incorrect Phone number or password", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Toast.makeText(LoginActivity.this,"Throwable " +t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Unable to Log In, Please Try Again..",Toast.LENGTH_LONG).show();
             }
         });
     }

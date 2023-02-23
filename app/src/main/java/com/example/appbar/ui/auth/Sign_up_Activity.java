@@ -63,17 +63,19 @@ public class Sign_up_Activity extends AppCompatActivity {
                     Toast.makeText(Sign_up_Activity.this, "Fill in all fields correctly",Toast.LENGTH_LONG).show();
 
                 }else{
-                    if(binding.signUpPhone.getText().toString() == binding.confirmPhone.getText().toString() ||
-                            binding.signupPassword.getText().toString()== binding.confirmPassword.getText().toString()){
-                    RegisterRequest registerRequest = new RegisterRequest();
-                    registerRequest.setNames(binding.fname.getText().toString().trim());
-                    registerRequest.setPhone(binding.signUpPhone.getText().toString().trim());
-                    registerRequest.setPassword(binding.signupPassword.getText().toString().trim());
-                    createNewUser(registerRequest);
-                    }else {
-                        Toast.makeText(Sign_up_Activity.this, "Make sure phone number and password match", Toast.LENGTH_SHORT).show();
+                    if(binding.signUpPhone.getText().toString().trim().equals(binding.confirmPhone.getText().toString().trim())) {
+                        if (binding.signupPassword.getText().toString().trim().equals(binding.confirmPassword.getText().toString().trim())) {
+                            RegisterRequest registerRequest = new RegisterRequest();
+                            registerRequest.setNames(binding.fname.getText().toString().trim());
+                            registerRequest.setPhone(binding.signUpPhone.getText().toString().trim());
+                            registerRequest.setPassword(binding.signupPassword.getText().toString().trim());
+                            createNewUser(registerRequest);
+                        } else {
+                            Toast.makeText(Sign_up_Activity.this, "Passwords do not match", Toast.LENGTH_LONG).show();
+                        }
+                    }else{
+                        Toast.makeText(Sign_up_Activity.this, "Phone Numbers do not match", Toast.LENGTH_LONG).show();
                     }
-
                 }
             }
         });
@@ -88,51 +90,21 @@ public class Sign_up_Activity extends AppCompatActivity {
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 if (response.isSuccessful()){
                     String message = "Registration Successful";
-                    Toast.makeText(Sign_up_Activity.this, message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Sign_up_Activity.this, message, Toast.LENGTH_LONG).show();
                     startActivity(new Intent(Sign_up_Activity.this,LoginActivity.class));
                     finish();
 
                 }else{
                      String message = "An error occurred please try again";
-                    Toast.makeText(Sign_up_Activity.this, message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Sign_up_Activity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Toast.makeText(Sign_up_Activity.this, "Throwable "+ t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Sign_up_Activity.this, "Throwable "+ t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private boolean isValidPassword(String password, String confirmPassword) {
-        if (password.length() < 6) {
-            binding.signupPassword.setError("Please create a password containing at least 6 characters");
-            return false;
-        } else if (!password.equals(confirmPassword)) {
-            binding.confirmPassword.setError("Passwords do not match");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isValidUserName(String name) {
-        if (name.equals("")) {
-            binding.fname.setError("Please enter your name");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isValidPhone(String phone, String confirmPhone) {
-        boolean isGoodPhone =(phone != null && Patterns.PHONE.matcher(phone).matches());
-        if (phone.length()<10) {
-            binding.signUpPhone.setError("Please enter a valid phone number");
-            return false;
-        }else if(!phone.equals(confirmPhone)){
-            binding.confirmPhone.setError("Phone Numbers do not match");
-        }
-        return true;
     }
 }
 

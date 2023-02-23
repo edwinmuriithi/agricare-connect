@@ -33,7 +33,7 @@ public class ForgotPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (binding.resetPhone.getText().toString().isEmpty()){
-                    Toast.makeText(ForgotPassword.this, "Enter Phone Number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPassword.this, "Enter Phone Number!", Toast.LENGTH_LONG).show();
                 }else {
                     resetPassword();
                 }
@@ -61,19 +61,19 @@ public class ForgotPassword extends AppCompatActivity {
             public void onResponse(Call<ForgetPassResponse> call, Response<ForgetPassResponse> response) {
               ForgetPassResponse forgetPassResponse = response.body();
               if(response.isSuccessful()){
-                Toast.makeText(ForgotPassword.this, "A password reset link has been sent to your phone", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgotPassword.this, "A password reset link has been sent to your phone", Toast.LENGTH_LONG).show();
 
                   Intent intent=new Intent(ForgotPassword.this, LoginActivity.class);
                   intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                   startActivity(intent);
               }else{
-                  Toast.makeText(ForgotPassword.this, "Enter correct number", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(ForgotPassword.this, "Enter correct number", Toast.LENGTH_LONG).show();
               }
             }
 
             @Override
             public void onFailure(Call<ForgetPassResponse> call, Throwable t) {
-                Toast.makeText(ForgotPassword.this, "Unable to reset, Please try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgotPassword.this, "Unable to reset, Please try again..", Toast.LENGTH_LONG).show();
             }
         });
     }
