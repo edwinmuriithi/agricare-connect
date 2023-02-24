@@ -79,6 +79,7 @@ public class FarmHelpExplain extends AppCompatActivity {
         binding.photoUpload.setImageURI(Uri.fromFile(imageFile));
         }
 
+
         Uri contentUri = getIntent().getData();
         if (contentUri !=null) {
             binding.photoUpload.setImageURI(contentUri);

@@ -53,7 +53,7 @@ public class FarmHelpRecord extends AppCompatActivity {
     private ActivityFarmHelpRecordBinding binding;
     int Image_Request_Code = 7;
     public static final int CAMERA_PERMISSION_CODE = 101;
-    String currentImagePath = null;
+    String currentImagePath;
     public static final int CAMERA_REQUEST_CODE =102;
     public static final int GALLERY_PERMISSION_CODE = 104;
 
@@ -136,7 +136,7 @@ public class FarmHelpRecord extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
 
             }else{
-                captureImage();
+                dispatchTakePictureIntent();
             }
     }
 
@@ -145,11 +145,15 @@ public class FarmHelpRecord extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == CAMERA_REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
-                File file = new File(currentImagePath);
-                Intent cameraIntent = new Intent(FarmHelpRecord.this, FarmHelpExplain.class);
-                cameraIntent.putExtra("filepath",file.toString());
-                Log.d(TAG, "Absolute Url of image is " + Uri.fromFile(file));
-                startActivity(cameraIntent);
+             File file = new File(currentImagePath);
+//             binding.testImg.setImageURI(Uri.fromFile(file));
+             Log.d(TAG, "Absolute URL of image is " + Uri.fromFile(file));
+
+             Intent cameraIntent = new Intent(this,FarmHelpExplain.class);
+             cameraIntent.putExtra("filepath",file.toString());
+             startActivity(cameraIntent);
+
+
             }
         }
 
@@ -163,6 +167,16 @@ public class FarmHelpRecord extends AppCompatActivity {
         }
     }
 
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentImagePath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
+
+
     private String getFileExt(Uri contentUri) {
         ContentResolver c = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
@@ -175,30 +189,10 @@ public class FarmHelpRecord extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                captureImage();
+              dispatchTakePictureIntent();
             } else {
                 Toast.makeText(this, "Camera Permission is required to use camera", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    private void captureImage() {
-        Intent cameraIntent = new Intent((MediaStore.ACTION_IMAGE_CAPTURE));
-        if(cameraIntent.resolveActivity(getPackageManager())!=null){
-            File imageFile = null;
-
-            try {
-                imageFile = getImageFile();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-
-            if(imageFile!=null){
-                Uri imageUri = FileProvider.getUriForFile(this,"com.example.android.fileprovider",imageFile);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
-          }
-
         }
     }
 
@@ -206,10 +200,58 @@ public class FarmHelpRecord extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageName = "jpg_"+timeStamp+"_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         File imageFile = File.createTempFile(imageName,".jpg",storageDir);
         currentImagePath = imageFile.getAbsolutePath();
         return imageFile;
     }
 
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = getImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+            }
+        }
+    }
+
+
 }
+
+//                File file = new File(currentImagePath);
+
+//                Intent cameraIntent = new Intent(FarmHelpRecord.this, FarmHelpExplain.class);
+//                cameraIntent.putExtra("filepath",file.toString());
+//                Log.d(TAG, "Absolute Url of image is " + Uri.fromFile(file));
+//                startActivity(cameraIntent);
+
+//        if(cameraIntent.resolveActivity(getPackageManager())!=null){
+//            File imageFile = null;
+//
+//            try {
+//                imageFile = getImageFile();
+//            } catch (IOException e){
+//                e.printStackTrace();
+//            }
+//
+//            if(imageFile!=null){
+//                Uri imageUri = FileProvider.getUriForFile(this,"com.example.android.fileprovider",imageFile);
+//                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+//                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+//          }
+//
+//        }
