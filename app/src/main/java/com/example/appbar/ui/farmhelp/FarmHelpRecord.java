@@ -198,13 +198,18 @@ public class FarmHelpRecord extends AppCompatActivity {
 
     private  File getImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageName = "jpg_"+timeStamp+"_";
+        String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
 
-        File imageFile = File.createTempFile(imageName,".jpg",storageDir);
-        currentImagePath = imageFile.getAbsolutePath();
-        return imageFile;
+        // Save a file: path for use with ACTION_VIEW intents
+        currentImagePath = image.getAbsolutePath();
+        return image;
+
     }
 
     private void dispatchTakePictureIntent() {
@@ -231,27 +236,3 @@ public class FarmHelpRecord extends AppCompatActivity {
 
 
 }
-
-//                File file = new File(currentImagePath);
-
-//                Intent cameraIntent = new Intent(FarmHelpRecord.this, FarmHelpExplain.class);
-//                cameraIntent.putExtra("filepath",file.toString());
-//                Log.d(TAG, "Absolute Url of image is " + Uri.fromFile(file));
-//                startActivity(cameraIntent);
-
-//        if(cameraIntent.resolveActivity(getPackageManager())!=null){
-//            File imageFile = null;
-//
-//            try {
-//                imageFile = getImageFile();
-//            } catch (IOException e){
-//                e.printStackTrace();
-//            }
-//
-//            if(imageFile!=null){
-//                Uri imageUri = FileProvider.getUriForFile(this,"com.example.android.fileprovider",imageFile);
-//                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-//                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
-//          }
-//
-//        }

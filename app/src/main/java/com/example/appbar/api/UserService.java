@@ -1,5 +1,6 @@
 package com.example.appbar.api;
 
+import com.example.appbar.model.farmvideo.VideoResponse;
 import com.example.appbar.model.forgetpass.ForgetPassRequest;
 import com.example.appbar.model.forgetpass.ForgetPassResponse;
 import com.example.appbar.model.login.LoginRequest;
@@ -45,6 +46,9 @@ public interface UserService {
     @POST("/posts")
     Call<PostResponse> postQuestion(@Part("description") RequestBody description,
                                     @Part MultipartBody.Part image);
+
+    @GET("/media")
+    Call<VideoResponse> getVideos();
 
     @POST("/messaging")
     Call<MessageResponse> sendMessage(@Body MessageRequest messageRequest);
