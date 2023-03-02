@@ -142,8 +142,6 @@ public class FarmVideo extends AppCompatActivity {
                     JSONObject categoriesData = categories.getJSONObject(0);
                     JSONArray videos = categoriesData.getJSONArray("videos");
 
-                    //Log.d(TAG, "onResponse: "+ videos);
-
                     for (int i = 0; i< videos.length();i++){
                         JSONObject video = videos.getJSONObject(i);
 
