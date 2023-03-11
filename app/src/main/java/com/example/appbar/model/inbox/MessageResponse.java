@@ -1,25 +1,25 @@
 
-package com.example.appbar.model.threads;
+package com.example.appbar.model.inbox;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class ThreadResponse {
+public class MessageResponse {
 
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("threads")
     @Expose
-    private List<Object> threads;
+    private List<ThreadResponse> threads;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public ThreadResponse() {
+    public MessageResponse() {
     }
 
     /**
@@ -27,7 +27,7 @@ public class ThreadResponse {
      * @param threads
      * @param status
      */
-    public ThreadResponse(String status, List<Object> threads) {
+    public MessageResponse(String status, List<ThreadResponse> threads) {
         super();
         this.status = status;
         this.threads = threads;
@@ -41,11 +41,11 @@ public class ThreadResponse {
         this.status = status;
     }
 
-    public List<Object> getThreads() {
+    public List<ThreadResponse> getThreads() {
         return threads;
     }
 
-    public void setThreads(List<Object> threads) {
+    public void setThreads(List<ThreadResponse> threads) {
         this.threads = threads;
     }
 
