@@ -41,6 +41,8 @@ public class ProfileActivity extends AppCompatActivity {
 //        Log.d(TAG, "Email is " + userDetails.getEmail());
         binding.payment.setText(userDetails.getPaidUser());
         Log.d(TAG, "Payment Status is " + userDetails.getPaidUser());
+        binding.lastPayment.setText(userDetails.getLastPayment());
+        binding.nextPayment.setText(userDetails.getNextPayment());
 
 
     }

@@ -3,6 +3,7 @@ package com.example.appbar.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 public class UserDetails {
 
     @SerializedName("id")
@@ -26,6 +27,12 @@ public class UserDetails {
     @SerializedName("paidUser")
     @Expose
     private String paidUser;
+    @SerializedName("lastPayment")
+    @Expose
+    private String lastPayment;
+    @SerializedName("nextPayment")
+    @Expose
+    private String nextPayment;
 
     /**
      * No args constructor for use in serialization
@@ -41,10 +48,12 @@ public class UserDetails {
      * @param names
      * @param role
      * @param phone
+     * @param lastPayment
      * @param id
+     * @param nextPayment
      * @param updatedAt
      */
-    public UserDetails(String id, String createdAt, String updatedAt, String names, String role, String phone, String paidUser) {
+    public UserDetails(String id, String createdAt, String updatedAt, String names, String role, String phone, String paidUser, String lastPayment, String nextPayment) {
         super();
         this.id = id;
         this.createdAt = createdAt;
@@ -53,6 +62,8 @@ public class UserDetails {
         this.role = role;
         this.phone = phone;
         this.paidUser = paidUser;
+        this.lastPayment = lastPayment;
+        this.nextPayment = nextPayment;
     }
 
     public String getId() {
@@ -109,6 +120,22 @@ public class UserDetails {
 
     public void setPaidUser(String paidUser) {
         this.paidUser = paidUser;
+    }
+
+    public String getLastPayment() {
+        return lastPayment;
+    }
+
+    public void setLastPayment(String lastPayment) {
+        this.lastPayment = lastPayment;
+    }
+
+    public String getNextPayment() {
+        return nextPayment;
+    }
+
+    public void setNextPayment(String nextPayment) {
+        this.nextPayment = nextPayment;
     }
 
 }
