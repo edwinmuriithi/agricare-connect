@@ -8,6 +8,7 @@ public class RegisterRequest {
 
    private String phone;
    private String names;
+   private String counties;
    private String password;
 
     public String getPhone() {

@@ -15,12 +15,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.appbar.R;
-import com.example.appbar.model.UserDetails;
 import com.example.appbar.model.inbox.ThreadResponse;
-import com.example.appbar.storage.SharedPreferencesManager;
-import com.example.appbar.ui.inbox.InboxActivity;
+
 
 import java.io.File;
 import java.util.List;
