@@ -5,7 +5,7 @@ package com.example.appbar.model.profile;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProfileRequest {
+public class ProfileData {
 
     @SerializedName("id")
     @Expose
@@ -28,25 +28,29 @@ public class ProfileRequest {
     @SerializedName("phone")
     @Expose
     private String phone;
+    @SerializedName("paidUser")
+    @Expose
+    private String paidUser;
 
     /**
      * No args constructor for use in serialization
-     * 
+     *
      */
-    public ProfileRequest() {
+    public ProfileData() {
     }
 
     /**
-     * 
+     *
      * @param createdAt
      * @param names
+     * @param paidUser
      * @param role
      * @param phone
      * @param id
      * @param email
      * @param updatedAt
      */
-    public ProfileRequest(String id, String createdAt, String updatedAt, String names, String email, String role, String phone) {
+    public ProfileData(String id, String createdAt, String updatedAt, String names, String email, String role, String phone,String paidUser) {
         super();
         this.id = id;
         this.createdAt = createdAt;
@@ -55,6 +59,7 @@ public class ProfileRequest {
         this.email = email;
         this.role = role;
         this.phone = phone;
+        this.paidUser = paidUser;
     }
 
     public String getId() {
@@ -112,5 +117,13 @@ public class ProfileRequest {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    public String getPaidUser() {
+        return paidUser;
+    }
+
+    public void setPaidUser(String paidUser) {
+        this.paidUser = paidUser;
+    }
+
 
 }

@@ -10,7 +10,7 @@ public class ProfileResponse {
 
     @SerializedName("data")
     @Expose
-    private ProfileRequest data;
+    private ProfileData data;
     @SerializedName("status")
     @Expose
     private String status;
@@ -27,17 +27,17 @@ public class ProfileResponse {
      * @param data
      * @param status
      */
-    public ProfileResponse(ProfileRequest data, String status) {
+    public ProfileResponse(ProfileData data, String status) {
         super();
         this.data = data;
         this.status = status;
     }
 
-    public ProfileRequest getData() {
+    public ProfileData getData() {
         return data;
     }
 
-    public void setData(ProfileRequest data) {
+    public void setData(ProfileData data) {
         this.data = data;
     }
 

@@ -1,9 +1,7 @@
-
 package com.example.appbar.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 
 public class UserDetails {
 
@@ -25,27 +23,28 @@ public class UserDetails {
     @SerializedName("phone")
     @Expose
     private String phone;
-    @SerializedName("email")
+    @SerializedName("paidUser")
     @Expose
-    private String email;
+    private String paidUser;
 
     /**
      * No args constructor for use in serialization
-     * 
+     *
      */
     public UserDetails() {
     }
 
     /**
-     * 
+     *
      * @param createdAt
+     * @param paidUser
      * @param names
      * @param role
      * @param phone
      * @param id
      * @param updatedAt
      */
-    public UserDetails(String id, String createdAt, String updatedAt, String names, String role, String phone, String email) {
+    public UserDetails(String id, String createdAt, String updatedAt, String names, String role, String phone, String paidUser) {
         super();
         this.id = id;
         this.createdAt = createdAt;
@@ -53,22 +52,11 @@ public class UserDetails {
         this.names = names;
         this.role = role;
         this.phone = phone;
-        this.email = email;
-    }
-
-    public UserDetails(String id, String names, String phone, String email) {
+        this.paidUser = paidUser;
     }
 
     public String getId() {
         return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public void setId(String id) {
@@ -113,6 +101,14 @@ public class UserDetails {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPaidUser() {
+        return paidUser;
+    }
+
+    public void setPaidUser(String paidUser) {
+        this.paidUser = paidUser;
     }
 
 }

@@ -1,4 +1,3 @@
-
 package com.example.appbar.model.login;
 
 import com.example.appbar.model.UserDetails;
@@ -28,13 +27,13 @@ public class LoginResponse {
 
     /**
      * No args constructor for use in serialization
-     * 
+     *
      */
     public LoginResponse() {
     }
 
     /**
-     * 
+     *
      * @param expires
      * @param newUser
      * @param issued
