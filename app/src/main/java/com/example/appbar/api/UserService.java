@@ -10,6 +10,7 @@ import com.example.appbar.model.post.PostResponse;
 import com.example.appbar.model.signup.RegisterRequest;
 import com.example.appbar.model.signup.RegisterResponse;
 import com.example.appbar.model.profile.ProfileResponse;
+import com.example.appbar.model.video.VideoResponse;
 
 
 import okhttp3.MultipartBody;
@@ -42,6 +43,9 @@ public interface UserService {
 
     @GET("/messaging")
     Call<ThreadResponse>getThreads();
+
+    @GET("/media")
+    Call<VideoResponse>fetchVideos();
 
 
 }

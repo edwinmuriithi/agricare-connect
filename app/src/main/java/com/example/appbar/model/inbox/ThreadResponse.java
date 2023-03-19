@@ -6,11 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class ThreadResponse {
-    public static final int TYPE_MESSAGE_SENT = 0;
-    public static final int TYPE_MESSAGE_RECEIVED = 1;
-    public static final int TYPE_IMAGE_SENT = 2;
-    public static final int TYPE_IMAGE_RECEIVED = 3;
-    private final int viewType;
+
+//    private final int viewType;
 
     @SerializedName("senderId")
     @Expose
@@ -43,9 +40,6 @@ public class ThreadResponse {
      * @param viewType
      * @param s
      */
-    public ThreadResponse(int viewType, String s) {
-        this.viewType = viewType;
-    }
 
     /**
      * 
@@ -58,9 +52,8 @@ public class ThreadResponse {
      * @param text
      * @param updatedAt
      */
-    public ThreadResponse(int viewType, String senderId, String image, String recipientId, Boolean read, String text, String updatedAt, Recipient recipient, Sender sender) {
+    public ThreadResponse(String senderId, String image, String recipientId, Boolean read, String text, String updatedAt, Recipient recipient, Sender sender) {
         super();
-        this.viewType = viewType;
         this.senderId = senderId;
         this.image = image;
         this.recipientId = recipientId;
@@ -71,9 +64,6 @@ public class ThreadResponse {
         this.sender = sender;
     }
 
-    public int getViewType() {
-        return viewType;
-    }
 
     public String getSenderId() {
         return senderId;

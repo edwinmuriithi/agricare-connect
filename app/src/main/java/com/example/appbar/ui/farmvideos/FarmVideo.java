@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.android.volley.Request;
@@ -43,9 +44,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appbar.R;
 import com.example.appbar.adapters.VideoAdapter;
+import com.example.appbar.api.ApiClient;
 import com.example.appbar.databinding.ActivityFarmVideoBinding;
 import com.example.appbar.databinding.ActivityFarmhelpBinding;
 import com.example.appbar.model.video.Video;
+import com.example.appbar.model.video.VideoData;
+import com.example.appbar.model.video.VideoResponse;
 import com.example.appbar.ui.farmhelp.FarmHelp;
 import com.example.appbar.ui.home.HomeActivity;
 import com.example.appbar.ui.inbox.InboxActivity;
@@ -59,6 +63,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 
 public class FarmVideo extends AppCompatActivity {
 
@@ -66,7 +73,8 @@ public class FarmVideo extends AppCompatActivity {
     public static final String TAG = "TAG";
     RecyclerView videoList;
     VideoAdapter adapter;
-    List<Video> all_videos;
+//    List<Video> all_videos;
+    List<VideoData> allVideos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,13 +129,41 @@ public class FarmVideo extends AppCompatActivity {
             }
         });
 
-        all_videos = new ArrayList<>();
+//        all_videos = new ArrayList<>();
+        //        adapter = new VideoAdapter(this,all_videos);
 
-        videoList = findViewById(R.id.videoList);
-        videoList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new VideoAdapter(this,all_videos);
-        videoList.setAdapter(adapter);
-        getJsonData();
+//        getJsonData();
+        fetchVideos();
+    }
+
+    private void fetchVideos() {
+        Call<VideoResponse> videoResponseCall = ApiClient.getUserService(this).fetchVideos();
+        videoResponseCall.enqueue(new retrofit2.Callback<VideoResponse>() {
+            @Override
+            public void onResponse(Call<VideoResponse> call, retrofit2.Response<VideoResponse> response) {
+                VideoResponse videoResponse = response.body();
+                if (response.isSuccessful()){
+                    Toast.makeText(FarmVideo.this, "Successfully fetched videos", Toast.LENGTH_SHORT).show();
+                    allVideos = new ArrayList<>();
+
+                    videoList = findViewById(R.id.videoList);
+                    videoList.setLayoutManager(new LinearLayoutManager(FarmVideo.this));
+                    adapter = new VideoAdapter(FarmVideo.this,allVideos);
+
+                    videoList.setAdapter(adapter);
+
+
+
+                }else{
+                    Toast.makeText(FarmVideo.this, "Unable to fetch at the moment", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VideoResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void getJsonData() {
@@ -155,7 +191,7 @@ public class FarmVideo extends AppCompatActivity {
                         JSONArray videoUrl = video.getJSONArray("sources");
                         v.setVideoUrl(videoUrl.getString(0));
 
-                        all_videos.add(v);
+//                        all_videos.add(v);
                         adapter.notifyDataSetChanged();
                     }
 

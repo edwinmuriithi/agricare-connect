@@ -4,7 +4,9 @@ package com.example.appbar.model.video;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class VideoData {
+import java.io.Serializable;
+
+public class VideoData implements Serializable {
 
     @SerializedName("id")
     @Expose

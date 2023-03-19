@@ -80,7 +80,7 @@ public class InboxActivity extends AppCompatActivity{
         chatList = new ArrayList<>();
         fetchThreads();
 
-//        UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
+        UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
 
 
         // Initialize and assign variable
@@ -125,15 +125,16 @@ public class InboxActivity extends AppCompatActivity{
             public void onResponse(Call<ThreadResponse> call, Response<ThreadResponse> response) {
                 ThreadResponse threadResponse = response.body();
                 if (response.isSuccessful()) {
-                    Toast.makeText(InboxActivity.this, "Fetched messages!!", Toast.LENGTH_SHORT).show();
-                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_MESSAGE_SENT,"This is a sent message"));
-                    Log.d(TAG, "onResponse: "+ new ThreadResponse(ThreadResponse.TYPE_MESSAGE_SENT,threadResponse.getText()));
-                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_MESSAGE_RECEIVED,"this is a sent message"));
-                    Log.d(TAG, "onResponse: "+ new ThreadResponse(ThreadResponse.TYPE_MESSAGE_RECEIVED,threadResponse.getText()));
-//                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_IMAGE_SENT,threadResponse.getImage()));
+//                    Toast.makeText(InboxActivity.this, "Fetched messages!!", Toast.LENGTH_SHORT).show();
+//                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_MESSAGE,"This is a sent message"));
+//                    Log.d(TAG, "onResponse: "+ new ThreadResponse(ThreadResponse.TYPE_MESSAGE_SENT,threadResponse.getText()));
+//                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_MESSAGE_RECEIVED,"this is a sent message"));
+//                    Log.d(TAG, "onResponse: "+ new ThreadResponse(ThreadResponse.TYPE_MESSAGE_RECEIVED,threadResponse.getText()));
+////                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_IMAGE_SENT,threadResponse.getImage()));
 //                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_IMAGE_RECEIVED,threadResponse.getImage()));
+                    UserDetails userDetails = SharedPreferencesManager.getInstance(InboxActivity.this).getUser();
 
-                    messageAdapter = new MessageAdapter(chatList,InboxActivity.this);
+                    messageAdapter = new MessageAdapter(chatList,InboxActivity.this,userDetails.getId());
                     recyclerView.setLayoutManager(new LinearLayoutManager(InboxActivity.this));
                     recyclerView.setAdapter(messageAdapter);
                     messageAdapter.notifyDataSetChanged();
