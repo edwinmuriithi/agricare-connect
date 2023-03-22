@@ -6,25 +6,25 @@
     app:startDestination="@+id/navigation_home">
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.appbar.ui.home.HomeFragment"
+        android:name="com.example.farmhub.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_farm_help"
-        android:name="com.example.appbar.ui.farmhelp.FarmHelpFragment"
+        android:name="com.example.farmhub.ui.farmhelp.FarmHelpFragment"
         android:label="@string/title_farm_help"
         tools:layout="@layout/fragment_farm_help" />
 
     <fragment
         android:id="@+id/navigation_farm_videos"
-        android:name="com.example.appbar.ui.farmvideos.FarmVideoFragment"
+        android:name="com.example.farmhub.ui.farmvideos.FarmVideoFragment"
         android:label="@string/title_farm_videos"
         tools:layout="@layout/fragment_farm_video" />
 
     <fragment
         android:id="@+id/navigation_inbox"
-        android:name="com.example.appbar.ui.inbox.InboxFragment"
+        android:name="com.example.farmhub.ui.inbox.InboxFragment"
         android:label="@string/title_inbox"
         tools:layout="@layout/fragment_inbox" />
 
