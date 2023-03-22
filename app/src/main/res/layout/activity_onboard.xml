@@ -6,4 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".OnboardActivity">
 
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="Welcome to"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="157dp"
+        android:layout_height="132dp"
+        android:layout_marginTop="9dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:srcCompat="@drawable/farmhub_logo12" />
+
+
+    <Button
+        android:id="@+id/farmHealth"
+        android:layout_width="350dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/custom_button_main"
+        android:drawableTop="@drawable/logo_farm"
+        android:text="Do you have farming questions to ask? Click here to talk to an expert!"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <Button
+        android:id="@+id/farmVideo"
+        android:layout_width="350dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="62dp"
+        android:background="@drawable/custom_button_main"
+        android:text="Do you want to learn more about farming? Click here to watch farming videos for free!"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:drawableTop="@drawable/logo_video"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/farmHealth"
+        app:layout_constraintStart_toStartOf="@+id/farmHealth"
+        app:layout_constraintTop_toBottomOf="@+id/farmHealth" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
