@@ -127,7 +127,7 @@ public class Sign_up_Activity extends AppCompatActivity {
 
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
-        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.countySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
