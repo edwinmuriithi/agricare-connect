@@ -11,146 +11,117 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmhub.R;
+import com.example.farmhub.model.UserDetails;
 import com.example.farmhub.model.inbox.ThreadResponse;
+import com.example.farmhub.storage.SharedPreferencesManager;
+import com.example.farmhub.ui.inbox.InboxActivity;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter {
-
-    private static final int TYPE_MESSAGE_SENT = 0;
-    private static final int TYPE_MESSAGE_RECEIVED = 1;
-    private static final int TYPE_IMAGE_SENT = 2;
-    private static final int TYPE_IMAGE_RECEIVED = 3;
-
-    private LayoutInflater inflater;
-    private List<ThreadResponse> threads;
-    Context context;
-    String loggedInUID;
-
-
-    public MessageAdapter(List<ThreadResponse> threads, Context context,String loggedInUID) {
-        this.threads = threads;
-        this.context = context;
-        this.loggedInUID = loggedInUID;
-    }
-
-    private class SentMessageHolder extends RecyclerView.ViewHolder{
-
-        TextView messageTxt;
-        public SentMessageHolder(@NonNull View itemView) {
-            super(itemView);
-
-            messageTxt = itemView.findViewById(R.id.sentTxt);
-
-        }
-    }
-
-    private class SentImageHolder extends RecyclerView.ViewHolder{
-
-        ImageView imageView;
-
-        public SentImageHolder(@NonNull View itemView) {
-            super(itemView);
-
-            imageView = itemView.findViewById(R.id.sentImageView);
-        }
-    }
-
-    private class ReceivedMessageHolder extends RecyclerView.ViewHolder{
-
-        TextView messageText;
-
-        public ReceivedMessageHolder(@NonNull View itemView) {
-            super(itemView);
-            messageText = itemView.findViewById(R.id.receivedTxt);
-        }
-    }
-
-    private class ReceivedImageHolder extends RecyclerView.ViewHolder{
-
-        ImageView imageView;
-
-        public ReceivedImageHolder(@NonNull View itemView) {
-            super(itemView);
-
-            imageView = itemView.findViewById(R.id.receivedImageView);
-        }
-    }
-
-//    @Override
-//    public int getItemViewType(int position) {
-//        switch(threads.get(position).getViewType()){
-//            case 0:
-//                return TYPE_MESSAGE_SENT;
-//
-//            case 1:
-//                return TYPE_MESSAGE_RECEIVED;
-//
-//            case 2:
-//                return TYPE_IMAGE_SENT;
-//
-//            case 3:
-//                return TYPE_IMAGE_RECEIVED;
-//
-//            default:
-//                return -1;
-//
-//        }
-//    }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view;
-
-        switch (viewType){
-            case TYPE_MESSAGE_SENT:
-                view = inflater.inflate(R.layout.item_sent_message,parent,false);
-                return new SentMessageHolder(view);
-            case TYPE_MESSAGE_RECEIVED:
-                view = inflater.inflate(R.layout.item_received_message, parent,false);
-                return new ReceivedMessageHolder(view);
-            case TYPE_IMAGE_SENT:
-                view = inflater.inflate(R.layout.item_sent_image,parent,false);
-                return new SentImageHolder(view);
-            case TYPE_IMAGE_RECEIVED:
-                view = inflater.inflate(R.layout.item_received_image,parent,false);
-                return new ReceivedImageHolder(view);
-        }
-
         return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//
-//        switch (threads.get(position).getViewType()){
-//            case TYPE_MESSAGE_SENT:
-//                String senderMessage = threads.get(position).getText();
-//                ((SentMessageHolder) holder).setView(senderMessage);
-//                break;
-//
-//            case TYPE_MESSAGE_RECEIVED:
-//                String receiverMessage = threads.get(position).getText();
-//                ((ReceivedMessageHolder) holder).setView(receiverMessage);
-//                break;
-//
-//            case TYPE_IMAGE_SENT:
-//                String senderImage = threads.get(position).getImage();
-//                ((SentImageHolder) holder).setImage(senderImage);
-//                break;
-//
-//            case TYPE_IMAGE_RECEIVED:
-//                String receiverImage = threads.get(position).getImage();
-//                ((ReceivedImageHolder) holder).setImage(receiverImage);
-//                break;
-//        }
-    }
 
+    }
 
     @Override
     public int getItemCount() {
-        return threads.size();
+        return 0;
     }
+
+//    Context context;
+//    List<ThreadResponse> messagesArrayList;
+//
+//    int ITEM_SEND = 1;
+//    int ITEM_RECIEVE = 2;
+//
+//    public MessageAdapter(Context context, ArrayList<ThreadResponse> messagesArrayList) {
+//        this.context = context;
+//        this.messagesArrayList = messagesArrayList;
+//    }
+//
+//    public MessageAdapter(ArrayList<ThreadResponse> messagesArrayList, InboxActivity inboxActivity, String id) {
+//    }
+//
+//    @NonNull
+//    @Override
+//    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//        if (viewType == ITEM_SEND) {
+//            View view = LayoutInflater.from(context).inflate(R.layout.item_sent_message, parent, false);
+//            return new SenderViewHolder(view);
+//        } else {
+//            View view = LayoutInflater.from(context).inflate(R.layout.item_received_message, parent, false);
+//            return new RecieverViewHolder(view);
+//        }
+//    }
+//
+//    @Override
+//    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+//
+//        ThreadResponse messages = messagesArrayList.get(position);
+//        if (holder.getClass() == SenderViewHolder.class) {
+//            SenderViewHolder viewHolder = (SenderViewHolder) holder;
+//            viewHolder.textViewmessaage.setText(messages.getText());
+//            viewHolder.timeofmessage.setText(messages.getUpdatedAt());
+//        } else {
+//            RecieverViewHolder viewHolder = (RecieverViewHolder) holder;
+//            viewHolder.textViewmessaage.setText(messages.getText());
+//            viewHolder.timeofmessage.setText(messages.getUpdatedAt());
+//        }
+//
+//
+//    }
+//
+//
+//    @Override
+//    public int getItemViewType(int position) {
+//        ThreadResponse messages = messagesArrayList.get(position);
+//        UserDetails userDetails = SharedPreferencesManager.getInstance(context).getUser();
+//        if (userDetails.getId().equals(messages.getSenderId())) {
+//            return ITEM_SEND;
+//        } else {
+//            return ITEM_RECIEVE;
+//        }
+//    }
+//
+//    @Override
+//    public int getItemCount() {
+//        return messagesArrayList.size();
+//    }
+//
+//
+//    class SenderViewHolder extends RecyclerView.ViewHolder {
+//
+//        TextView textViewmessaage;
+//        TextView timeofmessage;
+//
+//
+//        public SenderViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            textViewmessaage = itemView.findViewById(R.id.sendermessage);
+//            timeofmessage = itemView.findViewById(R.id.timeofmessage);
+//        }
+//    }
+//
+//    class RecieverViewHolder extends RecyclerView.ViewHolder {
+//
+//        TextView textViewmessaage;
+//        TextView timeofmessage;
+//
+//
+//        public RecieverViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            textViewmessaage = itemView.findViewById(R.id.sendermessage);
+//            timeofmessage = itemView.findViewById(R.id.timeofmessage);
+//        }
+//    }
+//
 
 }

@@ -43,7 +43,7 @@ public class Sign_up_Activity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final Spinner spinner = (Spinner) findViewById(R.id.county_spinner);
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();

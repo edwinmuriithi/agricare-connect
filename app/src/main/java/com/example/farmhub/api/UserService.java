@@ -2,6 +2,7 @@ package com.example.farmhub.api;
 
 import com.example.farmhub.model.forgetpass.ForgetPassRequest;
 import com.example.farmhub.model.forgetpass.ForgetPassResponse;
+import com.example.farmhub.model.inbox.MessageResponse;
 import com.example.farmhub.model.inbox.ThreadResponse;
 import com.example.farmhub.model.login.LoginRequest;
 import com.example.farmhub.model.login.LoginResponse;
@@ -42,7 +43,7 @@ public interface UserService {
                                     @Part MultipartBody.Part image);
 
     @GET("/messaging")
-    Call<ThreadResponse>getThreads();
+    Call<MessageResponse>getThreads();
 
     @GET("/media")
     Call<VideoResponse>fetchVideos();

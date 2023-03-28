@@ -43,6 +43,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.title.setText(allVideos.get(position).getTitle());
+        holder.author.setText(allVideos.get(position).getAuthor());
         Picasso.get().load(allVideos.get(position).getImageUrl()).into(holder.videoImage);
 
         holder.vv.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +68,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView videoImage;
         TextView title;
+        TextView author;
         View vv;
         private Context context;
         public ViewHolder(@NonNull View itemView) {
@@ -74,6 +76,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
             videoImage = itemView.findViewById(R.id.videoThumbnail);
             title = itemView.findViewById(R.id.videoTitle);
+            author = itemView.findViewById(R.id.videoAuthor);
             vv = itemView;
             context = itemView.getContext();
         }

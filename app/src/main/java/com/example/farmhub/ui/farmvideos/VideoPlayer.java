@@ -54,10 +54,12 @@ public class VideoPlayer extends AppCompatActivity {
 
         TextView title = findViewById(R.id.videoTitle);
         TextView desc = findViewById(R.id.videoDesc);
+        TextView author = findViewById(R.id.videoAuthor);
         videoPlayer = findViewById(R.id.videoView);
 
         title.setText(v.getTitle());
         desc.setText(v.getDescription());
+        author.setText(v.getAuthor());
         Uri videoUrl = Uri.parse(v.getVideoUrl());
         videoPlayer.setVideoURI(videoUrl);
         MediaController mc = new MediaController(this);

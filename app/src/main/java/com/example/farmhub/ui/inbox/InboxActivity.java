@@ -16,6 +16,7 @@ import com.example.farmhub.api.ApiClient;
 import com.example.farmhub.databinding.ActivityFarmVideoBinding;
 import com.example.farmhub.databinding.ActivityInboxBinding;
 import com.example.farmhub.model.UserDetails;
+import com.example.farmhub.model.inbox.MessageResponse;
 import com.example.farmhub.model.inbox.ThreadResponse;
 import com.example.farmhub.storage.SharedPreferencesManager;
 import com.example.farmhub.ui.farmhelp.FarmHelp;
@@ -24,6 +25,7 @@ import com.example.farmhub.ui.home.HomeActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +37,7 @@ public class InboxActivity extends AppCompatActivity{
     private int GALLERY_REQUEST_CODE = 5;
     private MessageAdapter messageAdapter;
     RecyclerView recyclerView;
-    ArrayList<ThreadResponse> chatList;
+    ArrayList<ThreadResponse> messagesArrayList;
 
 
     @Override
@@ -47,7 +49,7 @@ public class InboxActivity extends AppCompatActivity{
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         recyclerView = binding.chatrecycle;
-        chatList = new ArrayList<>();
+        messagesArrayList = new ArrayList<>();
         fetchThreads();
 
         UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
@@ -89,12 +91,13 @@ public class InboxActivity extends AppCompatActivity{
     }
 
     private void fetchThreads() {
-        Call<ThreadResponse> threadResponseCall=ApiClient.getUserService(this).getThreads();
-        threadResponseCall.enqueue(new Callback<ThreadResponse>() {
+        Call<MessageResponse> messageResponseCall=ApiClient.getUserService(this).getThreads();
+        messageResponseCall.enqueue(new Callback<MessageResponse>() {
             @Override
-            public void onResponse(Call<ThreadResponse> call, Response<ThreadResponse> response) {
-                ThreadResponse threadResponse = response.body();
+            public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
+                MessageResponse messageResponse = response.body();
                 if (response.isSuccessful()) {
+//                    List<ThreadResponse> chatList = messageResponse;
 //                    Toast.makeText(InboxActivity.this, "Fetched messages!!", Toast.LENGTH_SHORT).show();
 //                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_MESSAGE,"This is a sent message"));
 //                    Log.d(TAG, "onResponse: "+ new ThreadResponse(ThreadResponse.TYPE_MESSAGE_SENT,threadResponse.getText()));
@@ -103,16 +106,16 @@ public class InboxActivity extends AppCompatActivity{
 ////                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_IMAGE_SENT,threadResponse.getImage()));
 //                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_IMAGE_RECEIVED,threadResponse.getImage()));
                     UserDetails userDetails = SharedPreferencesManager.getInstance(InboxActivity.this).getUser();
-
-                    messageAdapter = new MessageAdapter(chatList,InboxActivity.this,userDetails.getId());
+//
+//                    messageAdapter = new MessageAdapter(messagesArrayList,InboxActivity.this,userDetails.getId());
                     recyclerView.setLayoutManager(new LinearLayoutManager(InboxActivity.this));
                     recyclerView.setAdapter(messageAdapter);
-                    messageAdapter.notifyDataSetChanged();
+//                    messageAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
-            public void onFailure(Call<ThreadResponse> call, Throwable t) {
+            public void onFailure(Call<MessageResponse> call, Throwable t) {
                 Toast.makeText(InboxActivity.this, "Unable to fetch messages", Toast.LENGTH_SHORT).show();
             }
         });
