@@ -161,6 +161,9 @@ public class FarmHelpUpload extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<PostResponse> call, Throwable t) {
                     Toast.makeText(FarmHelpUpload.this, "Unable to submit question currently", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(FarmHelpUpload.this, "Question submitted successfully", Toast.LENGTH_LONG).show();
+//                    Intent activityIntent = new Intent(FarmHelpUpload.this, FarmHelpSuccess.class);
+//                    startActivity(activityIntent);
                 }
             });
         }
