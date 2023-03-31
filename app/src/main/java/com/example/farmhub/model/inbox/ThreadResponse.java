@@ -4,8 +4,13 @@ package com.example.farmhub.model.inbox;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 
-public class ThreadResponse {
+import tz.co.hosannahighertech.messagekit.commons.models.IMessage;
+import tz.co.hosannahighertech.messagekit.commons.models.IUser;
+
+
+public class ThreadResponse implements IMessage {
 
 //    private final int viewType;
 
@@ -97,8 +102,23 @@ public class ThreadResponse {
         this.read = read;
     }
 
+    @Override
+    public String getId() {
+        return null;
+    }
+
     public String getText() {
         return text;
+    }
+
+    @Override
+    public IUser getUser() {
+        return null;
+    }
+
+    @Override
+    public Date getCreatedAt() {
+        return null;
     }
 
     public void setText(String text) {

@@ -4,7 +4,9 @@ package com.example.farmhub.model.inbox;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Sender {
+import tz.co.hosannahighertech.messagekit.commons.models.IUser;
+
+public class Sender implements IUser {
 
     @SerializedName("names")
     @Expose
@@ -34,4 +36,18 @@ public class Sender {
         this.names = names;
     }
 
+    @Override
+    public String getId() {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public String getAvatar() {
+        return null;
+    }
 }

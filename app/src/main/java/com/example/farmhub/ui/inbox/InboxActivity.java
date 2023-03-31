@@ -48,7 +48,8 @@ public class InboxActivity extends AppCompatActivity{
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        recyclerView = binding.chatrecycle;
+
+//        recyclerView = binding.chatrecycle;
         messagesArrayList = new ArrayList<>();
         fetchThreads();
 
@@ -108,8 +109,8 @@ public class InboxActivity extends AppCompatActivity{
                     UserDetails userDetails = SharedPreferencesManager.getInstance(InboxActivity.this).getUser();
 //
 //                    messageAdapter = new MessageAdapter(messagesArrayList,InboxActivity.this,userDetails.getId());
-                    recyclerView.setLayoutManager(new LinearLayoutManager(InboxActivity.this));
-                    recyclerView.setAdapter(messageAdapter);
+//                    recyclerView.setLayoutManager(new LinearLayoutManager(InboxActivity.this));
+//                    recyclerView.setAdapter(messageAdapter);
 //                    messageAdapter.notifyDataSetChanged();
                 }
             }

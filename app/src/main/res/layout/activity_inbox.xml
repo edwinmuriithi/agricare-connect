@@ -7,17 +7,12 @@
     tools:context=".ui.inbox.InboxActivity">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chatrecycle"
-        android:layout_width="414dp"
-        android:layout_height="617dp"
-        android:layout_above="@id/chatlayout"
-        app:layout_constraintBottom_toTopOf="@+id/chatlayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-
+    <tz.co.hosannahighertech.messagekit.messages.MessagesList
+        android:id="@+id/messagesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/chatlayout" />
 
 
     <LinearLayout
