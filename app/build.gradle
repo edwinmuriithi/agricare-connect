@@ -41,15 +41,12 @@ android {
 }
 
 dependencies {
-    implementation project(':chatkit')
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-database:20.1.0'
+    implementation project(path: ':messagekit')
     testImplementation 'junit:junit:4.13.2'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
@@ -67,6 +64,7 @@ dependencies {
     implementation 'org.java-websocket:Java-WebSocket:1.5.1'
     implementation platform('com.google.firebase:firebase-bom:31.2.3')
     implementation 'com.google.firebase:firebase-analytics'
+
 
 
 }
