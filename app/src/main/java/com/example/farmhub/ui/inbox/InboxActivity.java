@@ -25,6 +25,7 @@ import com.example.farmhub.ui.home.HomeActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,7 +38,7 @@ public class InboxActivity extends AppCompatActivity{
     private int GALLERY_REQUEST_CODE = 5;
     private MessageAdapter messageAdapter;
     RecyclerView recyclerView;
-    ArrayList<ThreadResponse> messagesArrayList;
+    List<ThreadResponse> messagesArrayList = new ArrayList<>();
 
 
     @Override
@@ -49,8 +50,8 @@ public class InboxActivity extends AppCompatActivity{
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
-//        recyclerView = binding.chatrecycle;
-        messagesArrayList = new ArrayList<>();
+        recyclerView = binding.chatrecycle;
+
         fetchThreads();
 
         UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
@@ -92,26 +93,24 @@ public class InboxActivity extends AppCompatActivity{
     }
 
     private void fetchThreads() {
+//        messagesArrayList = new ArrayList<>();
+
         Call<MessageResponse> messageResponseCall=ApiClient.getUserService(this).getThreads();
         messageResponseCall.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
                 MessageResponse messageResponse = response.body();
                 if (response.isSuccessful()) {
-//                    List<ThreadResponse> chatList = messageResponse;
-//                    Toast.makeText(InboxActivity.this, "Fetched messages!!", Toast.LENGTH_SHORT).show();
-//                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_MESSAGE,"This is a sent message"));
-//                    Log.d(TAG, "onResponse: "+ new ThreadResponse(ThreadResponse.TYPE_MESSAGE_SENT,threadResponse.getText()));
-//                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_MESSAGE_RECEIVED,"this is a sent message"));
-//                    Log.d(TAG, "onResponse: "+ new ThreadResponse(ThreadResponse.TYPE_MESSAGE_RECEIVED,threadResponse.getText()));
-////                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_IMAGE_SENT,threadResponse.getImage()));
-//                    chatList.add(new ThreadResponse(ThreadResponse.TYPE_IMAGE_RECEIVED,threadResponse.getImage()));
-                    UserDetails userDetails = SharedPreferencesManager.getInstance(InboxActivity.this).getUser();
-//
-//                    messageAdapter = new MessageAdapter(messagesArrayList,InboxActivity.this,userDetails.getId());
-//                    recyclerView.setLayoutManager(new LinearLayoutManager(InboxActivity.this));
-//                    recyclerView.setAdapter(messageAdapter);
-//                    messageAdapter.notifyDataSetChanged();
+                    List<ThreadResponse> threads = messageResponse.getThreads();
+//                    Collections.sort(threads,(ThreadResponse t1, ThreadResponse t2)->t1.getCreatedAt().compareTo(t2.getCreatedAt()));
+                    messagesArrayList = threads;
+                    Toast.makeText(InboxActivity.this, "Fetched messages!!", Toast.LENGTH_SHORT).show();
+
+                    messageAdapter = new MessageAdapter(InboxActivity.this,messagesArrayList);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(InboxActivity.this));
+                    recyclerView.setNestedScrollingEnabled(false);
+                    recyclerView.setAdapter(messageAdapter);
+                    messageAdapter.notifyDataSetChanged();
                 }
             }
 

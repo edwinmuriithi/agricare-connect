@@ -7,13 +7,25 @@
     tools:context=".ui.inbox.InboxActivity">
 
 
-
-    <tz.co.hosannahighertech.messagekit.messages.MessagesList
-        android:id="@+id/messagesList"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/chatlayout" />
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatrecycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/chatlayout"
+            app:layout_constraintBottom_toTopOf="@+id/chatlayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/receiverchatlayout" />
+
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/chatlayout"
