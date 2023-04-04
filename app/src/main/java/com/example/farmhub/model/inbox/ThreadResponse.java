@@ -4,6 +4,7 @@ package com.example.farmhub.model.inbox;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
 import java.util.Date;
 
 import tz.co.hosannahighertech.messagekit.commons.models.IMessage;
