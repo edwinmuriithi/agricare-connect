@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.farmtech.farmhub">
 
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -26,98 +27,98 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.auth.Sign_up_Activity"
+            android:name="com.farmtech.farmhub.ui.auth.Sign_up_Activity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.auth.ForgotPassword"
+            android:name="com.farmtech.farmhub.ui.auth.ForgotPassword"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.farmvideos.VideoPlayer"
+            android:name="com.farmtech.farmhub.ui.farmvideos.VideoPlayer"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.profile.ProfileActivity"
+            android:name="com.farmtech.farmhub.ui.profile.ProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.farmhelp.FarmHelp"
+            android:name="com.farmtech.farmhub.ui.farmhelp.FarmHelp"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.farmtech.farmhub.MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.inbox.InboxActivity"
+            android:name="com.farmtech.farmhub.ui.inbox.InboxActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.farmvideos.FarmVideo"
+            android:name="com.farmtech.farmhub.ui.farmvideos.FarmVideo"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.farmhelp.FarmHelpSuccess"
+            android:name="com.farmtech.farmhub.ui.farmhelp.FarmHelpSuccess"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.farmhelp.FarmHelpUpload"
+            android:name="com.farmtech.farmhub.ui.farmhelp.FarmHelpUpload"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.farmhelp.FarmHelpExplain"
+            android:name="com.farmtech.farmhub.ui.farmhelp.FarmHelpExplain"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name="com.farmtech.farmhub.ui.home.HomeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.farmhelp.FarmHelpRecord"
+            android:name="com.farmtech.farmhub.ui.farmhelp.FarmHelpRecord"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".OnboardActivity"
+            android:name="com.farmtech.farmhub.OnboardActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -130,18 +131,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.auth.PhoneOTP"
+            android:name="com.farmtech.farmhub.ui.auth.PhoneOTP"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name="com.farmtech.farmhub.SplashActivity"
             android:exported="false"
             android:theme="@style/SplashTheme" />
         <activity
-            android:name=".ui.auth.LoginActivity"
+            android:name="com.farmtech.farmhub.ui.auth.LoginActivity"
             android:exported="false" />
 
         <provider

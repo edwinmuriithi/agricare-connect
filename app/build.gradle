@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.farmhub"
+        applicationId "com.farmtech.farmhub"
         minSdk 21
         targetSdk 32
         versionCode 1
@@ -37,7 +37,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.example.farmhub'
+    namespace 'com.farmtech.farmhub'
 }
 
 dependencies {
