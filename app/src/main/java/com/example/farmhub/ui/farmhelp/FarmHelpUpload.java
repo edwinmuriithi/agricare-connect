@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -43,6 +44,7 @@ public class FarmHelpUpload extends AppCompatActivity {
     String filePath;
     String description;
     String path;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,10 +154,30 @@ public class FarmHelpUpload extends AppCompatActivity {
                 public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                     PostResponse postResponse = response.body();
                     if (response.isSuccessful()) {
-                        Toast.makeText(FarmHelpUpload.this, "Question submitted successfully", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "Question posted Successfully " + postResponse.getImageUrl());
-                        Intent activityIntent = new Intent(FarmHelpUpload.this, FarmHelpSuccess.class);
-                        startActivity(activityIntent);
+                        progressDialog = new ProgressDialog(FarmHelpUpload.this);
+                        progressDialog.setMessage("Submitting question..");
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.setIndeterminate(true);
+                        progressDialog.setProgress(0);
+                        progressDialog.show();
+                        progressDialog.setCancelable(false);
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    Thread.sleep(10000);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                progressDialog.dismiss();
+                                Log.d(TAG, "Question posted Successfully " + postResponse.getImageUrl());
+                                Intent activityIntent = new Intent(FarmHelpUpload.this, FarmHelpSuccess.class);
+                                startActivity(activityIntent);
+                            }
+                        }).start();
+
+
+//                        Toast.makeText(FarmHelpUpload.this, "Question submitted successfully", Toast.LENGTH_LONG).show();
+
 
                     } else {
                         Toast.makeText(FarmHelpUpload.this, "Failed to submit question... Please try again", Toast.LENGTH_LONG).show();
@@ -190,10 +212,29 @@ public class FarmHelpUpload extends AppCompatActivity {
                 public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                     PostResponse postResponse = response.body();
                     if (response.isSuccessful()) {
-                        Toast.makeText(FarmHelpUpload.this, "Question submitted successfully", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "Question posted Successfully " + postResponse.getImageUrl());
-                        Intent activityIntent = new Intent(FarmHelpUpload.this, FarmHelpSuccess.class);
-                        startActivity(activityIntent);
+                        progressDialog = new ProgressDialog(FarmHelpUpload.this);
+                        progressDialog.setMessage("Submitting question..");
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.setIndeterminate(true);
+                        progressDialog.setProgress(0);
+                        progressDialog.show();
+                        progressDialog.setCancelable(false);
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    Thread.sleep(10000);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                progressDialog.dismiss();
+//                                Toast.makeText(FarmHelpUpload.this, "Question submitted successfully", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "Question posted Successfully " + postResponse.getImageUrl());
+                                Intent activityIntent = new Intent(FarmHelpUpload.this, FarmHelpSuccess.class);
+                                startActivity(activityIntent);
+                            }
+                        }).start();
+
+
 
                     } else {
                         Toast.makeText(FarmHelpUpload.this, "Failed to submit question... Please try again", Toast.LENGTH_LONG).show();
