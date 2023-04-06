@@ -26,9 +26,11 @@ import com.example.farmhub.adapters.VideoAdapter;
 import com.example.farmhub.api.ApiClient;
 import com.example.farmhub.databinding.ActivityFarmVideoBinding;
 import com.example.farmhub.databinding.ActivityFarmhelpBinding;
+import com.example.farmhub.model.UserDetails;
 import com.example.farmhub.model.video.Video;
 import com.example.farmhub.model.video.VideoData;
 import com.example.farmhub.model.video.VideoResponse;
+import com.example.farmhub.storage.SharedPreferencesManager;
 import com.example.farmhub.ui.farmhelp.FarmHelp;
 import com.example.farmhub.ui.home.HomeActivity;
 import com.example.farmhub.ui.inbox.InboxActivity;
@@ -99,6 +101,9 @@ public class FarmVideo extends AppCompatActivity {
             return false;
 
         });
+
+        UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
+        binding.profileName.setText(userDetails.getNames());
         binding.myProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

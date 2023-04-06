@@ -78,7 +78,9 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return messagesArrayList.size();
+        return messagesArrayList == null ? 0 : messagesArrayList.size();
+
+//        return messagesArrayList.size();
     }
 
 
@@ -106,6 +108,14 @@ public class MessageAdapter extends RecyclerView.Adapter {
             textViewmessaage = itemView.findViewById(R.id.receivermessage);
             timeofmessage = itemView.findViewById(R.id.timeofmessage);
         }
+    }
+    public void swapDataSet(List<ThreadResponse> newData){
+
+        this.messagesArrayList = newData;
+
+        //now, tell the adapter about the update
+        notifyDataSetChanged();
+
     }
 
 

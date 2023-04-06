@@ -35,6 +35,7 @@ public class Sign_up_Activity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     public static final String myPreferences = "myPref";
     private ActivitySignUp2Binding binding;
+    public String countySelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class Sign_up_Activity extends AppCompatActivity {
         setContentView(view);
 
         final Spinner spinner = (Spinner) findViewById(R.id.county_spinner);
+
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
@@ -131,7 +133,7 @@ public class Sign_up_Activity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
-                String item = (String) parent.getItemAtPosition(position).toString();
+                countySelected = (String) parent.getItemAtPosition(position).toString();
 
             }
 
@@ -172,6 +174,7 @@ public class Sign_up_Activity extends AppCompatActivity {
                             RegisterRequest registerRequest = new RegisterRequest();
                             registerRequest.setNames(binding.fname.getText().toString().trim());
                             registerRequest.setPhone(binding.signUpPhone.getText().toString().trim());
+
                             registerRequest.setPassword(binding.signupPassword.getText().toString().trim());
                             createNewUser(registerRequest);
                         } else {

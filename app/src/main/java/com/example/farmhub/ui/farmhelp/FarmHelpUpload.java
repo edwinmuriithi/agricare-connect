@@ -19,7 +19,9 @@ import com.example.farmhub.api.ApiClient;
 import com.example.farmhub.constants.RealPathUtil;
 import com.example.farmhub.databinding.ActivityFarmHelpRecordBinding;
 import com.example.farmhub.databinding.ActivityFarmHelpUploadBinding;
+import com.example.farmhub.model.UserDetails;
 import com.example.farmhub.model.post.PostResponse;
+import com.example.farmhub.storage.SharedPreferencesManager;
 import com.example.farmhub.ui.farmvideos.FarmVideo;
 import com.example.farmhub.ui.home.HomeActivity;
 import com.example.farmhub.ui.inbox.InboxActivity;
@@ -83,6 +85,9 @@ public class FarmHelpUpload extends AppCompatActivity {
                 return false;
 
         });
+
+        UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
+        binding.profileName.setText(userDetails.getNames());
 
         Intent intent = getIntent();
         filePath = intent.getStringExtra("filepath");

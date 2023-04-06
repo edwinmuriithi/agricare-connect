@@ -111,14 +111,19 @@ public class InboxActivity extends AppCompatActivity{
                         }
                     });
 
-                    Toast.makeText(InboxActivity.this, "Fetched messages!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InboxActivity.this, "Fetched messages successfully!!", Toast.LENGTH_SHORT).show();
 
                     messageAdapter = new MessageAdapter(InboxActivity.this,messagesArrayList);
                     recyclerView.setLayoutManager(new LinearLayoutManager(InboxActivity.this));
-                    recyclerView.setNestedScrollingEnabled(false);
+//                    recyclerView.setNestedScrollingEnabled(false);
                     recyclerView.setAdapter(messageAdapter);
-                    messageAdapter.notifyDataSetChanged();
+//                    messageAdapter.notifyDataSetChanged();
+                    messageAdapter.swapDataSet(messagesArrayList);
+//                    refreshList();
+
                 }
+
+
             }
 
             @Override
@@ -127,4 +132,8 @@ public class InboxActivity extends AppCompatActivity{
             }
         });
            }
+
+    private void refreshList() {
+        messageAdapter.notifyDataSetChanged();
+    }
 }

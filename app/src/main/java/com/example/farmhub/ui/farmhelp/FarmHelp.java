@@ -11,6 +11,8 @@ import android.view.View;
 import com.example.farmhub.R;
 import com.example.farmhub.databinding.ActivityFarmhelpBinding;
 import com.example.farmhub.databinding.ActivityMainBinding;
+import com.example.farmhub.model.UserDetails;
+import com.example.farmhub.storage.SharedPreferencesManager;
 import com.example.farmhub.ui.farmvideos.FarmVideo;
 import com.example.farmhub.ui.home.HomeActivity;
 import com.example.farmhub.ui.inbox.InboxActivity;
@@ -63,6 +65,9 @@ public class FarmHelp extends AppCompatActivity {
                 return false;
 
         });
+
+        UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
+        binding.profileName.setText(userDetails.getNames());
 
         binding.question.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.example.farmhub.R;
 import com.example.farmhub.databinding.ActivityFarmHelpExplainBinding;
 import com.example.farmhub.databinding.ActivityFarmHelpRecordBinding;
+import com.example.farmhub.model.UserDetails;
+import com.example.farmhub.storage.SharedPreferencesManager;
 import com.example.farmhub.ui.farmvideos.FarmVideo;
 import com.example.farmhub.ui.home.HomeActivity;
 import com.example.farmhub.ui.inbox.InboxActivity;
@@ -64,7 +66,8 @@ public class FarmHelpRecord extends AppCompatActivity {
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
 
-
+        UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
+        binding.profileName.setText(userDetails.getNames());
         binding.myProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

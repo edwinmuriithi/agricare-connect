@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.example.farmhub.R;
 import com.example.farmhub.databinding.ActivityFarmHelpExplainBinding;
+import com.example.farmhub.model.UserDetails;
+import com.example.farmhub.storage.SharedPreferencesManager;
 import com.example.farmhub.ui.farmvideos.FarmVideo;
 import com.example.farmhub.ui.home.HomeActivity;
 import com.example.farmhub.ui.inbox.InboxActivity;
@@ -49,6 +51,8 @@ public class FarmHelpExplain extends AppCompatActivity {
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
 
+        UserDetails userDetails = SharedPreferencesManager.getInstance(this).getUser();
+        binding.profileName.setText(userDetails.getNames());
 
         Intent intent = getIntent();
         filePath = intent.getStringExtra("filepath");
