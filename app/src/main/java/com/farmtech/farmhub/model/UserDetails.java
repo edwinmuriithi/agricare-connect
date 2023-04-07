@@ -1,4 +1,6 @@
+
 package com.farmtech.farmhub.model;
+
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -24,6 +26,12 @@ public class UserDetails {
     @SerializedName("phone")
     @Expose
     private String phone;
+    @SerializedName("county")
+    @Expose
+    private Object county;
+    @SerializedName("subCounty")
+    @Expose
+    private Object subCounty;
     @SerializedName("paidUser")
     @Expose
     private String paidUser;
@@ -36,24 +44,26 @@ public class UserDetails {
 
     /**
      * No args constructor for use in serialization
-     *
+     * 
      */
     public UserDetails() {
     }
 
     /**
-     *
+     * 
      * @param createdAt
      * @param paidUser
      * @param names
      * @param role
      * @param phone
+     * @param county
      * @param lastPayment
      * @param id
+     * @param subCounty
      * @param nextPayment
      * @param updatedAt
      */
-    public UserDetails(String id, String createdAt, String updatedAt, String names, String role, String phone, String paidUser, String lastPayment, String nextPayment) {
+    public UserDetails(String id, String createdAt, String updatedAt, String names, String role, String phone, Object county, Object subCounty, String paidUser, String lastPayment, String nextPayment) {
         super();
         this.id = id;
         this.createdAt = createdAt;
@@ -61,6 +71,8 @@ public class UserDetails {
         this.names = names;
         this.role = role;
         this.phone = phone;
+        this.county = county;
+        this.subCounty = subCounty;
         this.paidUser = paidUser;
         this.lastPayment = lastPayment;
         this.nextPayment = nextPayment;
@@ -112,6 +124,22 @@ public class UserDetails {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Object getCounty() {
+        return county;
+    }
+
+    public void setCounty(Object county) {
+        this.county = county;
+    }
+
+    public Object getSubCounty() {
+        return subCounty;
+    }
+
+    public void setSubCounty(Object subCounty) {
+        this.subCounty = subCounty;
     }
 
     public String getPaidUser() {

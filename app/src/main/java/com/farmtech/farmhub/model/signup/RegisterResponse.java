@@ -2,6 +2,7 @@
 package com.farmtech.farmhub.model.signup;
 
 
+import com.farmtech.farmhub.model.UserDetails;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +11,7 @@ public class RegisterResponse {
 
     @SerializedName("user")
     @Expose
-    private RegisterRequest registerRequest;
+    private UserDetails userDetails;
     @SerializedName("status")
     @Expose
     private String status;
@@ -28,22 +29,22 @@ public class RegisterResponse {
     /**
      * 
      * @param message
-     * @param registerRequest
+     * @param userDetails
      * @param status
      */
-    public RegisterResponse(RegisterRequest registerRequest, String status, String message) {
+    public RegisterResponse(UserDetails userDetails, String status, String message) {
         super();
-        this.registerRequest = registerRequest;
+        this.userDetails = userDetails;
         this.status = status;
         this.message = message;
     }
 
-    public RegisterRequest getUser() {
-        return registerRequest;
+    public UserDetails getUser() {
+        return userDetails;
     }
 
-    public void setUser(RegisterRequest registerRequest) {
-        this.registerRequest = registerRequest;
+    public void setUser(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 
     public String getStatus() {

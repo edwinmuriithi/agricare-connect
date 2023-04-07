@@ -133,8 +133,7 @@ public class Sign_up_Activity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
-                countySelected = (String) parent.getItemAtPosition(position).toString();
-
+                    countySelected = (String) parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -165,7 +164,7 @@ public class Sign_up_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 if(binding.fname.getText().toString().isEmpty() || binding.signUpPhone.getText().toString().isEmpty() ||
                    binding.confirmPhone.getText().toString().isEmpty() || binding.signupPassword.getText().toString().isEmpty() ||
-                   binding.confirmPassword.getText().toString().isEmpty()){
+                   binding.confirmPassword.getText().toString().isEmpty() || countySelected == "Select your county"){
                     Toast.makeText(Sign_up_Activity.this, "Fill in all fields correctly",Toast.LENGTH_LONG).show();
 
                 }else{
@@ -174,7 +173,7 @@ public class Sign_up_Activity extends AppCompatActivity {
                             RegisterRequest registerRequest = new RegisterRequest();
                             registerRequest.setNames(binding.fname.getText().toString().trim());
                             registerRequest.setPhone(binding.signUpPhone.getText().toString().trim());
-
+                            registerRequest.setCounty(countySelected);
                             registerRequest.setPassword(binding.signupPassword.getText().toString().trim());
                             createNewUser(registerRequest);
                         } else {

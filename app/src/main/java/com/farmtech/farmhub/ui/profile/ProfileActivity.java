@@ -51,7 +51,8 @@ public class ProfileActivity extends AppCompatActivity {
         ProfileData profileData = new ProfileData();
         profileData.setNames(binding.fname.getText().toString().trim());
         profileData.setPhone(binding.phone.getText().toString().trim());
-        profileData.setEmail(binding.email.getText().toString().trim());
+//        profileData.setEmail(binding.email.getText().toString().trim());
+        profileData.setCounty(binding.county.getText().toString().trim());
         profileData.setPaidUser(binding.payment.getText().toString().trim());
 
 
@@ -68,10 +69,12 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.d(TAG, "Name is " + profileResponse.getData().getNames());
                     binding.phone.setText(profileResponse.getData().getPhone());
                     Log.d(TAG, "Phone number is " + profileResponse.getData().getPhone());
-                    binding.email.setText(profileResponse.getData().getEmail());
-                    Log.d(TAG, "Email is " + profileResponse.getData().getEmail());
+//                    binding.email.setText(profileResponse.getData().getEmail());
+//                    Log.d(TAG, "Email is " + profileResponse.getData().getEmail());
+                    binding.county.setText(profileResponse.getData().getCounty());
+                    Log.i(TAG, "County is: " + profileResponse.getData().getCounty());
                     binding.payment.setText(profileResponse.getData().getPaidUser());
-                    Log.d(TAG, "Email is " + profileResponse.getData().getPaidUser());
+                    Log.d(TAG, "Payment is " + profileResponse.getData().getPaidUser());
 
                 }else{
                     Toast.makeText(ProfileActivity.this, "Error loading user details", Toast.LENGTH_SHORT).show();
