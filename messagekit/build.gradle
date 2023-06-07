@@ -6,12 +6,9 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
 
     defaultConfig {
         minSdkVersion 19
-        versionCode 1
-        versionName "1.0.0apha5"
         consumerProguardFiles 'proguard.txt'
     }
     android {
@@ -19,6 +16,7 @@ android {
             abortOnError false
         }
     }
+    namespace 'tz.co.hosannahighertech.messagekit'
 }
 
 java {

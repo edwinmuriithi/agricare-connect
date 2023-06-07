@@ -2,7 +2,7 @@ buildscript {
 
     dependencies {
         classpath 'com.google.gms:google-services:4.3.15'
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
 
@@ -10,8 +10,8 @@ buildscript {
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    id 'com.android.application' version '7.3.1' apply false
-    id 'com.android.library' version '7.3.1' apply false
+    id 'com.android.application' version '7.4.2' apply false
+    id 'com.android.library' version '7.4.2' apply false
     id 'maven-publish'
     id "com.jfrog.bintray" version "1.8.5"
 //    id 'com.jfrog.artifactory' version '4.4.18'
