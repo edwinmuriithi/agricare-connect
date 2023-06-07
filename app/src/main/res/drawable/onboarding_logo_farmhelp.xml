@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/farmhelp_logoo"
-        android:width="120dp"
-        android:height="67dp">
+        android:drawable="@drawable/agrihelp"
+        android:width="180dp"
+        android:height="75dp">
     </item>
 </layer-list>

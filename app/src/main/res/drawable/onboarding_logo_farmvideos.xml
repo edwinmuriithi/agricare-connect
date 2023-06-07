@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/farmers_videos_logo1"
-        android:width="120dp"
-        android:height="55dp">
+        android:drawable="@drawable/agrivideos"
+        android:width="180dp"
+        android:height="75dp">
     </item>
 </layer-list>
