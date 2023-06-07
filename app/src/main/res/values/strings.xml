@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">AgriCare-Connect</string>
     <string name="title_home">Home</string>
-    <string name="title_farm_help">FarmHelp</string>
-    <string name="title_farm_videos">FarmVideos</string>
+    <string name="title_farm_help">AgriHelp</string>
+    <string name="title_farm_videos">AgriVideos</string>
     <string name="title_inbox">Inbox</string>
     <string name="title_profile">Profile</string>
     <string name="default_web_client_id1" translatable="false">101414590555-6tignr36u2hngvob5eoaomah7u31c2qd.apps.googleusercontent.com</string>
